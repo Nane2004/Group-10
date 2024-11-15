@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wikidata Brain Parts</title>
     <style>
-        /* Styling for the box */
+        /* Styling for the left box */
         #wordBox {
             position: fixed;
             bottom: 10px;
@@ -37,6 +37,39 @@
         #wordBox button:hover {
             background-color: #f0f0f0;
         }
+
+        /* Styling for the right box */
+        #functionBox {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            width: 200px;
+            padding: 10px;
+            background-color: lightgreen;
+            border: 2px solid black;
+            border-radius: 5px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        #functionBox h3 {
+            margin: 0;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        /* Center the SVG image */
+        #imageContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Makes sure the image is centered vertically */
+            width: 100%;
+        }
+
+        #imageContainer img {
+            max-width: 100%;  /* Adjusts the image size within the available space */
+            max-height: 80%; /* Limits the height of the image */
+        }
     </style>
 </head>
 
@@ -64,16 +97,16 @@
             }
         }
 
-        // Create the box element
+        // Create the left box element
         const wordBox = document.createElement('div');
         wordBox.id = 'wordBox';
 
-        // Create the heading
+        // Create the heading for the left box
         const heading = document.createElement('h3');
         heading.textContent = 'Brain parts';
         wordBox.appendChild(heading);
 
-        // Populate the box with buttons after fetching labels
+        // Populate the left box with buttons after fetching labels
         async function populateButtons() {
             for (const item of wikidataItems) {
                 const label = await fetchLabel(item.id);
@@ -86,17 +119,29 @@
             }
         }
 
-        // Append the box to the body
+        // Append the left box to the body
         document.body.appendChild(wordBox);
 
         // Fetch labels and populate the box
         populateButtons();
+
+        // Create the right box for "Function"
+        const functionBox = document.createElement('div');
+        functionBox.id = 'functionBox';
+
+        // Create the heading for the right box
+        const functionHeading = document.createElement('h3');
+        functionHeading.textContent = 'Function';
+        functionBox.appendChild(functionHeading);
+
+        // Append the right box to the body
+        document.body.appendChild(functionBox);
     </script>
 
-     // Placing Brain image onto website
-    <img style="z-index: 0;" src="/Users/silarheder/Downloads/file brain 2024-11-15 at 11.13.10.svg" width="700" height="500">
-
-
+    <!-- Placing Brain image onto the website -->
+    <div id="imageContainer">
+        <img src="/Users/silarheder/Downloads/file brain 2024-11-15 at 11.13.10.svg" width="700" height="500">
+    </div>
 
 </body>
 </html>
