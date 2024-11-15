@@ -1,18 +1,72 @@
 <!DOCTYPE html>
 <html>
+<html lang="en">
+
+<head>
+    <h1>I made this myself!</h1>
+</head>
+
 <body>
-
-<h2>What Can JavaScript Do??</h2>
-
-<p id="demo">JavaScript can anything hide HTML elements.</p>
-
+  
+<p id="demo">Hi, welcome to my website.</p>
 <button type="button" onclick="document.getElementById('demo').style.display='none'">Click Me!</button>
 
-<p id="demo2" style="display: none;">new text. 1</p>
+<p id="demo2" style="display: none;">What?</p>
 
-<button type="button" onclick="document.getElementById('demo2').style.display='block'">Click Me Too!</button>
+<button type="button" onclick="document.getElementById('demo2').style.display='block'">Stupid people say what?</button>
 
+
+<button type="button" onclick="myFunction()">This is the weather tomorrow</button>
+
+<script>
+function myFunction() {
+    window.alert("Cold as fuck!");}
+</script>
+
+
+
+<h2>Fetching information from Wikidata</h2>
+<p><span style="text-decoration: underline;">Brain Part:</span> <span id="brainPartLabel">Loading...</span></p>
+<p><span style="text-decoration: underline;">Function:</span> <span id="description">Loading...</span></p>
+
+    <script>
+        async function fetchWikidata() {
+            const endpointUrl = "https://query.wikidata.org/sparql";
+            
+            // SPARQL query to retrieve the label and description of the item Q189033 (medulla oblongata)
+            const sparqlQuery = `
+                SELECT ?brainPartLabel ?description
+                WHERE {
+                    wd:Q189033 rdfs:label ?brainPartLabel;
+                               schema:description ?description.
+                    FILTER (lang(?brainPartLabel) = "en")
+                    FILTER (lang(?description) = "en")
+                }
+            `;
+            
+            const fullUrl = endpointUrl + "?query=" + encodeURIComponent(sparqlQuery);
+            
+            try {
+                const response = await fetch(fullUrl, {
+                    headers: { 'Accept': 'application/sparql-results+json' }
+                });
+                const data = await response.json();
+                
+                // Process and display the result
+                const result = data.results.bindings[0];
+                document.getElementById('brainPartLabel').innerText = result.brainPartLabel.value;
+                document.getElementById('description').innerText = result.description.value;
+            } catch (error) {
+                console.error("Error fetching data from Wikidata:", error);
+                document.getElementById('brainPartLabel').innerText = "Failed to load data.";
+                document.getElementById('description').innerText = "Failed to load data.";
+            }
+        }
+
+        // Call the fetchWikidata function when the page loads
+        fetchWikidata();
+    </script>
 
 
 </body>
-</html> 
+</html>

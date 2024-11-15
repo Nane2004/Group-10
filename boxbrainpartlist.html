@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wikidata Brain Parts</title>
+    <style>
+        /* Styling for the box */
+        #wordBox {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            width: 200px;
+            padding: 10px;
+            background-color: lightblue;
+            border: 2px solid black;
+            border-radius: 5px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        #wordBox h3 {
+            margin: 0 0 10px 0;
+            text-align: center;
+            font-size: 16px;
+        }
+        #wordBox button {
+            display: block;
+            width: 100%;
+            margin: 5px 0;
+            padding: 5px;
+            border: 1px solid black;
+            border-radius: 3px;
+            background-color: white;
+            cursor: pointer;
+        }
+        #wordBox button:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // Define the Wikidata entities
+        const wikidataItems = [
+            { id: 'Q189033', placeholder: 'car' },
+            { id: 'Q130983', placeholder: 'baby' },
+            { id: 'Q182228', placeholder: 'toy' },
+            { id: 'Q749520', placeholder: 'sun' },
+            { id: 'Q848340', placeholder: 'cloud' },
+        ];
+
+        // Function to fetch labels from Wikidata
+        async function fetchLabel(id) {
+            const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${id}&format=json&props=labels&languages=en&origin=*`;
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                return data.entities[id].labels.en.value;
+            } catch (error) {
+                console.error(`Error fetching label for ${id}:`, error);
+                return 'Unknown';
+            }
+        }
+
+        // Create the box element
+        const wordBox = document.createElement('div');
+        wordBox.id = 'wordBox';
+
+        // Create the heading
+        const heading = document.createElement('h3');
+        heading.textContent = 'Brain parts';
+        wordBox.appendChild(heading);
+
+        // Populate the box with buttons after fetching labels
+        async function populateButtons() {
+            for (const item of wikidataItems) {
+                const label = await fetchLabel(item.id);
+                const button = document.createElement('button');
+                button.textContent = label; // Set button text to fetched label
+                button.addEventListener('click', () => {
+                    alert(`You clicked: ${label}`);
+                });
+                wordBox.appendChild(button);
+            }
+        }
+
+        // Append the box to the body
+        document.body.appendChild(wordBox);
+
+        // Fetch labels and populate the box
+        populateButtons();
+    </script>
+</body>
+</html>
