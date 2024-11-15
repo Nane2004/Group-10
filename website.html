@@ -1,30 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <h1 style="text-decoration: underline; text-align: center; margin-top: 0;">Brain Parts and their Functions</h1>
+<!DOCTYPE html> <!--defining the document type, the code is characteristic to html-->
+<html lang="en"> <!--the language of the content on the website-->
+<head> <!--the heading-->
+
+    <meta charset="UTF-8"> <!--UTF-8 makes other funky symbols accessible that are not typical in the english alphabet-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--scale and display of the webpage-->
+    <!--viewport stands for the visible area of the webpage -->>
+    <title> Brain Parts Illustration with Wikidata </title> <!--title of the page that seen in the browser tab and search engine results-->
     
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wikidata Brain Parts</title>
-    <style>
-        /* Styling for the left box */
-        #wordBox {
+    <style> /*switching to CSS with <style> tag which is used to design the content of a HTML webpage*/
+
+        /*styling the box for the list of brain parts*/
+        #styleBox { /* # is an id selector, the style described below applies only to that*/
             position: fixed;
-            bottom: 10px;
+            bottom: 10px; /*the box will be 10px from the bottom of the page*/
             left: 10px;
             width: 200px;
-            padding: 10px;
+            padding: 10px; /*padding creates space between the border and the content*/
             background-color: lightblue;
             border: 2px solid black;
             border-radius: 5px;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
         }
-        #wordBox h3 {
+
+        /*styling the heading of the box of the list, h1 is the biggest in size and h6 the smallest*/
+        #styleBox h3 {
             margin: 0 0 10px 0;
             text-align: center;
             font-size: 16px;
         }
-        #wordBox button {
+        /*styling the buttons inside the box*/
+        #styleBox button { /*CSS is (lower-higher)case-sensitive, check that the id is always written correctly*/
             display: block;
             width: 100%;
             margin: 5px 0;
@@ -34,13 +38,15 @@
             background-color: white;
             cursor: pointer;
         }
-        #wordBox button:hover {
+
+        /*when the mouse hovers over the button then the color of the button changes slightly*/
+        #styleBox button:hover {
             background-color: #f0f0f0;
         }
 
-        /* Styling for the right box */
+        /*styling for the box that displays functions*/
         #functionBox {
-            position: fixed;
+            position: absolute; /*absolute allows the box to be moved anywhere on the page*/
             top: 10px;
             right: 10px;
             width: 200px;
@@ -48,7 +54,7 @@
             background-color: lightgreen;
             border: 2px solid black;
             border-radius: 5px;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+            display: none; /*none hides the box*/
         }
 
         #functionBox h3 {
@@ -57,45 +63,123 @@
             font-size: 16px;
         }
 
-        /* Center the SVG image */
-        #imageContainer {
+        /*adding the initial SVG image of the brain onto the website*/
+        #imageBrain {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh; /* Makes sure the image is centered vertically */
+            height: 100vh; /*vh stands for viewport height and it makes sure the image is centered vertically*/
             width: 100%;
         }
 
-        #imageContainer img {
-            max-width: 100%;  /* Adjusts the image size within the available space */
-            max-height: 80%; /* Limits the height of the image */
+        #imageBrain img {
+            max-width: 100%;  /*adjusts the image size within the available space*/
+            max-height: 80%; /*limits the height of the image*/
         }
+
     </style>
-</head>
+</head> <!--the head section is meant for metadata, links to CSS, and JavaScript imports-->
 
-<body>
-    <script>
-        // Defining Wikidata entities: final list of brain parts
-        const wikidataItems = [
-            { id: 'Q223851', placeholder: 'one' }, // Corpus Callosum
-            { id: 'Q130983', placeholder: 'two' }, // cerebellum
-            { id: 'Q182228', placeholder: 'three' }, // brain stem
-            { id: 'Q749520', placeholder: 'four' }, // frontal lobe
-            { id: 'Q848340', placeholder: 'five' }, // occipital lobe
-            { id: 'Q156871',  placeholder: 'six'}, // Pituitary gland
-            { id: 'Q815334', placeholder: 'seven'}, // parietal lobe
-            { id: 'Q744385', placeholder: 'eight'}, // temporal lobe
-            { id: 'Q338924', placeholder: 'nine'}, // amygdala
-            { id: 'Q192419', placeholder: 'ten'}, // diencephalon
-            { id: 'Q11345481', placeholder: 'eleven'}, // limbic lobe
-            { id: 'Q184215', placeholder: 'twelve'}, // thalamus
-            { id: 'Q164386', placeholder: 'thirteen'}, // hypothalamus
-            { id: 'Q192570', placeholder: 'fourteen'}, // pons
-            { id: 'Q48360', placeholder: 'fifteen'}, // hippocampus
-            { id: 'Q728285', placeholder: 'sixteen'}, // broca's area
-        ];
+<body> <!--the body section is meant for content display-->
+    
+    <!--h1 stands for the main heading on the page itself-->
+    <h1 style="text-decoration: underline; text-align: center; margin-top: 0;"> Brain Anatomy and The Functional Specialization of its Brain Regions </h1>
+    
+    <!--p stands for paragraph-->
+    <p style="text-align: center;">
+    This website illustrates human brain anatomy and the functional specialization of its regions to support biomedical research and educational applications.
+    Interactivity can effectively illustrate complex brain functions like memory, movement, and sensory processing.
+    This visualization design hopefully improves user engagement and knowledge retention.
+    Click on any part on the image or in the list on the left side to see detailed information fetched from Wikidata.
+    The image is from this site made by that person (to be updated). </p>
 
-        // Function to fetch labels from Wikidata
+    <!--assinging variable "styleBox" for the list of brain parts-->
+    <div id="styleBox"></div> <!--div is a section/group/division for elements-->>
+
+    <!--assinging variable "functionBox" for the function descriptions-->
+    <div id="functionBox">
+        <h3>Function</h3>
+        <p id="functionDescription"> Click on a brain part to see its function. </p>
+    </div>
+
+    <!--placing brain image onto the website-->
+    <div id="imageBrain">
+        <img src="file brain 2024-11-15 at 11.13.10.svg" width="700" height="500">
+    </div>
+
+    <script> // the script is written with JavaScript
+    
+    // the script is basically a mess
+
+        // a function to make a given element draggable
+        function makeDraggable(elementId) {
+            const element = document.getElementById(elementId);
+            let offsetX = 0, offsetY = 0, mouseX = 0, mouseY = 0;
+
+            // mouse down event to start dragging
+            element.onmousedown = (event) => {
+                event.preventDefault();
+                // and then getting the current mouse position
+                mouseX = event.clientX;
+                mouseY = event.clientY;
+
+                // add mouse move and mouse up event listeners
+                document.onmousemove = dragElement;
+                document.onmouseup = stopDragging;
+            };
+
+            // Function to drag the element
+            function dragElement(event) {
+                event.preventDefault();
+                // Calculate the new cursor position
+                offsetX = mouseX - event.clientX;
+                offsetY = mouseY - event.clientY;
+                mouseX = event.clientX;
+                mouseY = event.clientY;
+
+                // Set the element's new position
+                element.style.top = (element.offsetTop - offsetY) + "px";
+                element.style.left = (element.offsetLeft - offsetX) + "px";
+            }
+
+            // Function to stop dragging
+            function stopDragging() {
+                document.onmousemove = null;
+                document.onmouseup = null;
+            }
+        }
+
+        // Enable dragging for styleBox and functionBox
+        makeDraggable("styleBox");
+        makeDraggable("functionBox");
+        // new piece of code ends here
+        
+        // an array of brain parts with id from Wikidata
+        // tried my best to classify them
+        const wikidataItems = { // const variable can be modified later on too
+            'Brain Stem' : [
+            { id: 'Q182228', label: "Brain Stem"},
+            { id: 'Q192570', label: "Pons"},],
+            'Diencephalon' : [
+            { id: 'Q192419', label: "Diencephalon"},
+            { id: 'Q184215', label: "Thalamus"},
+            { id: 'Q164386', label: "Hypothalamus"},],
+            'Cerebrum': [
+            { id: 'Q749520', label: "Frontal Lobe"},
+            { id: 'Q848340', label: "Occipital Lobe"},
+            { id: 'Q815334', label: "Parietal Lobe"},
+            { id: 'Q744385', label: "Temporal Lobe"},],
+            'Limbic System' : [
+            { id: 'Q338924', label: "Amygdala"},
+            { id: 'Q48360', label: "Hippocampus"},],
+            'Other Areas' : [
+            { id: 'Q130983', label: "Cerebellum"},
+            { id: 'Q156871',  label: "Pituitary Gland"},
+            { id: 'Q11345481', label: "Limbic Lobe"},
+            { id: 'Q223851', label: "Corpus Callosum"},
+            { id: 'Q728285', label: "Broca's area"},],}
+
+        // a function to fetch labels from Wikidata
         async function fetchLabel(id) {
             const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${id}&format=json&props=labels&languages=en&origin=*`;
             try {
@@ -108,6 +192,11 @@
             }
         }
 
+        function capitalizeFirstLetterOfEachWord(string) {
+    return string.replace(/\b\w/g, function(match) {
+        return match.toUpperCase();
+    });
+}
         // Function to fetch description from Wikidata
         async function fetchDescription(id) {
             const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${id}&format=json&props=descriptions&languages=en&origin=*`;
@@ -121,37 +210,18 @@
             }
         }
         // Create the left box element
-        const wordBox = document.createElement('div');
-        wordBox.id = 'wordBox';
+        const styleBox = document.createElement('div');
+        styleBox.id = 'styleBox';
 
         // Create the heading for the left box
         const heading = document.createElement('h3');
-        heading.textContent = 'Brain parts';
-        wordBox.appendChild(heading);
-
-        // Populate the left box with buttons after fetching labels
-        async function populateButtons() {
-            for (const item of wikidataItems) {
-                const label = await fetchLabel(item.id);
-                const button = document.createElement('button');
-                button.textContent = label; // Set button text to fetched label
-                button.addEventListener('click', async () => {
-                    const description = await fetchDescription(item.id);
-                    functionDescription.textContent = description;
-                });
-                wordBox.appendChild(button);
-            }
-        }
-
-        // Append the left box to the body
-        document.body.appendChild(wordBox);
-
-        // Fetch labels and populate the box
-        populateButtons();
+        heading.textContent = 'Brain Parts';
+        styleBox.appendChild(heading);
 
         // Create the right box for "Function"
         const functionBox = document.createElement('div');
         functionBox.id = 'functionBox';
+        functionBox.style.display = 'none';  // Initially hide the function box
 
         // Create the heading for the right box
         const functionHeading = document.createElement('h3');
@@ -163,15 +233,45 @@
         functionDescription.id = 'functionDescription';
         functionDescription.textContent = 'Click on a brain part to see its function.';
         functionBox.appendChild(functionDescription);
-        
+
         // Append the right box to the body
         document.body.appendChild(functionBox);
-    </script>
 
-    <!-- Placing Brain image onto the website -->
-    <div id="imageContainer">
-        <img src="file brain 2024-11-15 at 11.13.10.svg" width="700" height="500">
-    </div>
+        // Populate the left box with buttons after fetching labels
+        async function populateButtons() {
+            for (const category in wikidataItems) {
+                // Create a heading for each category
+                const categoryHeading = document.createElement('h4');
+                categoryHeading.textContent = category; // Set the category name as the heading
+                styleBox.appendChild(categoryHeading);
+
+                // Iterate over each item in the current category
+                for (const item of wikidataItems[category]) {
+                    const label = await fetchLabel(item.id); // Fetch the label from Wikidata
+                    const capitalizedLabel = capitalizeFirstLetterOfEachWord(label);
+                    const button = document.createElement('button');
+                    button.textContent = label; // Set button text to fetched label
+                        
+                    // Add click event to fetch description and display it in functionBox
+                    button.addEventListener('click', async () => {
+                    const description = await fetchDescription(item.id);
+                    functionDescription.textContent = `${label}: ${description}`; // Display label and description
+                    functionBox.style.display = 'block'; // Show the function box
+                    });
+
+                    // Append the button to the styleBox
+                    styleBox.appendChild(button);
+                }
+            }
+        }
+
+        // Append the left box to the body
+        document.body.appendChild(styleBox);
+
+        // Fetch labels and populate the box
+        populateButtons();
+
+    </script>
 
 </body>
 </html>
