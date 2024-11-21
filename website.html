@@ -94,7 +94,7 @@
     The image is from this site made by that person (to be updated). </p>
 
     <!--assinging variable "styleBox" for the list of brain parts-->
-    <div id="styleBox"></div> <!--div is a section/group/division for elements-->>
+    <div id="styleBox"></div> <!--div is a section/group/division for elements-->
 
     <!--assinging variable "functionBox" for the function descriptions-->
     <div id="functionBox">
@@ -112,27 +112,29 @@
         // an array of brain parts with id from Wikidata
         // tried my best to classify them
         const wikidataItems = { // const variable can be modified later on too
-            'Brain Stem' : [
-            { id: 'Q182228'}, // Brain Stem
-            { id: 'Q192570'},], // Pons
-            'Diencephalon' : [
-            { id: 'Q192419'}, // Diencephalon
-            { id: 'Q184215'}, // Thalamus
-            { id: 'Q164386'},], // Hypothalamus"
+            
             'Cerebrum': [
             { id: 'Q749520'}, // Frontal Lobe
             { id: 'Q848340'}, // Occipital Lobe
             { id: 'Q815334'}, // Parietal Lobe
-            { id: 'Q744385'},], // Temporal Lobe
+            { id: 'Q744385'}, // Temporal Lobe
+            { id: 'Q728285'},], // Broca's area
+
             'Limbic System' : [
             { id: 'Q338924'}, // Amygdala
-            { id: 'Q48360'},], // Hippocampus
-            'Other Areas' : [
-            { id: 'Q130983'}, // Cerebellum
+            { id: 'Q48360'}, // Hippocampus
+            { id: 'Q184215'}, // Thalamus
+            { id: 'Q164386'}, // Hypothalamus"
             { id: 'Q156871'},  // Pituitary Gland
-            { id: 'Q11345481'}, // Limbic Lobe
-            { id: 'Q223851'}, // Corpus Callosum
-            { id: 'Q728285'},],} // Broca's area
+            { id: 'Q11345481'},], // Limbic Lobe
+
+            'Brain Stem' : [
+            { id: 'Q182228'}, // Brain Stem
+            { id: 'Q192570'},], // Pons
+
+            'Other Areas' : [
+            { id: 'Q130983'},],}  // Cerebellum
+            
 
         // a function to fetch labels from Wikidata
         async function fetchLabel(id) {
