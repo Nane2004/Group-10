@@ -10,11 +10,7 @@
     <style> /*switching to CSS with <style> tag which is used to design the content of a HTML webpage*/
 
         body { /*the color of the website*/
-            background-image: url('images/your-image.jpg'); /* Path to your background image */
-            background-size: cover; /* Make sure the image covers the entire page */
-            background-position: center; /* Center the image */
-            background-repeat: no-repeat; /* Prevent image from repeating */
-            /*background-color: hwb(275 56% 31%);*/
+            background-color: rgb(254, 254, 254);
             margin: 0;
             font-family: Arial, sans-serif;
         }
@@ -29,6 +25,16 @@
             color: white; /* Make the text white for contrast */
             height: 150px;
             box-sizing: border-box;
+        }
+
+        /* Style for the container with content */
+        .container {
+            width: 80%; /* 80% of the page width */
+            max-width: 1200px; /* Set a max width for large screens */
+            margin: 0 auto; /* Center the container horizontally */
+            background-color: rgb(41, 62, 89); /* White background for content */
+            padding: 20px; /* Add padding around content */
+            border-radius: 10px; /* Optional: rounded corners */
         }
 
         /*styling the box for the list of brain parts*/
@@ -109,13 +115,20 @@
         <h1 style="text-decoration: underline; text-align: center; margin-top: 0;"> Brain Anatomy and The Functional Specialization of its Brain Regions </h1>
     </div>
 
-    <!--p stands for paragraph-->
-    <p style="text-align: center;">
-    This website illustrates human brain anatomy and the functional specialization of its regions to support biomedical research and educational applications.
-    Interactivity can effectively illustrate complex brain functions like memory, movement, and sensory processing.
-    This visualization design hopefully improves user engagement and knowledge retention.
-    Click on any part on the image or in the list on the left side to see detailed information fetched from Wikidata.
-    The image is from this site made by that person (to be updated). </p>
+    <div class="container">
+        <!--p stands for paragraph-->
+        <p style="text-align: center;">
+        This website illustrates human brain anatomy and the functional specialization of its regions to support biomedical research and educational applications.
+        Interactivity can effectively illustrate complex brain functions like memory, movement, and sensory processing.
+        This visualization design hopefully improves user engagement and knowledge retention.
+        Click on any part on the image or in the list on the left side to see detailed information fetched from Wikidata.
+        The image is from this site made by that person (to be updated). </p>
+
+        <!--placing brain image onto the website-->
+        <div id="imageBrain">
+            <img src="images/file brain 2024-11-15 at 11.13.10.svg" width="700" height="500">
+        </div>
+    </div>
 
     <!--assinging variable "styleBox" for the list of brain parts-->
     <div id="styleBox"></div> <!--div is a section/group/division for elements-->
@@ -124,16 +137,6 @@
     <div id="functionBox">
         <h3>Function</h3>
         <p id="functionDescription"> Click on a brain part to see its function. </p>
-    </div>
-
-    <!--placing brain image onto the website-->
-    <div id="imageBrain">
-        <img src="images/file brain 2024-11-15 at 11.13.10.svg" width="700" height="500">
-    </div>
-
-    <!--placing backround image onto the website-->
-    <div id="imageBackround">
-        <img src="images/backroundimagefinal.svg" width="700" height="500">
     </div>
 
     <script> // the script is written with JavaScript
@@ -150,21 +153,21 @@
             { id: 'Q728285'},], // Broca's area
 
             'Limbic System' : [
+            { id: 'Q11345481'}, // Limbic Lobe
             { id: 'Q338924'}, // Amygdala
             { id: 'Q48360'}, // Hippocampus
             { id: 'Q184215'}, // Thalamus
             { id: 'Q164386'}, // Hypothalamus"
-            { id: 'Q156871'},  // Pituitary Gland
-            { id: 'Q11345481'},], // Limbic Lobe
+            { id: 'Q156871'},],  // Pituitary Gland
+
 
             'Brain Stem' : [
-            { id: 'Q182228'}, // Brain Stem
-            { id: 'Q182228'}, // Brain Stem
+            { id: 'Q189033'}, // medulla oblongata
+            { id: 'Q185080'}, // Mesencephalon/midbrain
             { id: 'Q192570'},], // Pons
 
             'Other Areas' : [
             { id: 'Q130983'},],}  // Cerebellum
-            
 
         // a function to fetch labels from Wikidata
         async function fetchLabel(id) {
