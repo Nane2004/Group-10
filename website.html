@@ -15,6 +15,15 @@
             font-family: Arial, sans-serif;
         }
 
+        #header {
+            background-image: url('images/backroundimagefinal.svg');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            padding: 50px 0; /* Adds padding around the header */
+            color: white; /* Make the text white for contrast */
+        }
+
         /*styling the box for the list of brain parts*/
         #styleBox { /* # is an id selector, the style described below applies only to that*/
             position: fixed;
@@ -83,23 +92,16 @@
             max-height: 80%; /*limits the height of the image*/
         }
 
-        header { /* bakcround image for the header */
-            background-image: url('bioscience-image-library-by-fayette-reynolds.jpg'); /* Replace with your image URL */
-            background-size: cover; /* Makes the image cover the entire area */
-            background-position: center; /* Centers the image */
-            text-align: center; /* Centers the text */
-            color: white; /* Makes the text white for contrast */
-            padding: 50px 20px; /* Adds some space inside the header */
-        }
-
     </style>
 </head> <!--the head section is meant for metadata, links to CSS, and JavaScript imports-->
 
 <body> <!--the body section is meant for content display-->
     
     <!--h1 stands for the main heading on the page itself-->
-    <h1 style="text-decoration: underline; text-align: center; margin-top: 0;"> Brain Anatomy and The Functional Specialization of its Brain Regions </h1>
-    
+    <div id="header">
+        <h1 style="text-decoration: underline; text-align: center; margin-top: 0;"> Brain Anatomy and The Functional Specialization of its Brain Regions </h1>
+    </div>
+
     <!--p stands for paragraph-->
     <p style="text-align: center;">
     This website illustrates human brain anatomy and the functional specialization of its regions to support biomedical research and educational applications.
@@ -120,6 +122,11 @@
     <!--placing brain image onto the website-->
     <div id="imageBrain">
         <img src="images/file brain 2024-11-15 at 11.13.10.svg" width="700" height="500">
+    </div>
+
+    <!--placing backround image onto the website-->
+    <div id="imageBackround">
+        <img src="images/backroundimagefinal.svg" width="700" height="500">
     </div>
 
     <script> // the script is written with JavaScript
