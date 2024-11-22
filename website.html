@@ -10,7 +10,11 @@
     <style> /*switching to CSS with <style> tag which is used to design the content of a HTML webpage*/
 
         body { /*the color of the website*/
-            background-color: hsl(220, 8%, 85%);
+            background-image: url('images/your-image.jpg'); /* Path to your background image */
+            background-size: cover; /* Make sure the image covers the entire page */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Prevent image from repeating */
+            /*background-color: hwb(275 56% 31%);*/
             margin: 0;
             font-family: Arial, sans-serif;
         }
@@ -19,9 +23,12 @@
             background-image: url('images/backroundimagefinal.svg');
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
             text-align: center;
             padding: 50px 0; /* Adds padding around the header */
             color: white; /* Make the text white for contrast */
+            height: 150px;
+            box-sizing: border-box;
         }
 
         /*styling the box for the list of brain parts*/
