@@ -9,11 +9,12 @@
     
     <style> /*switching to CSS with <style> tag which is used to design the content of a HTML webpage*/
 
-        body {
-            background-color: #dad5c7; /* Cream White */
+        body { /*the color of the website*/
+            background-color: hsl(40, 8%, 85%);
             margin: 0;
             font-family: Arial, sans-serif;
         }
+
         /*styling the box for the list of brain parts*/
         #styleBox { /* # is an id selector, the style described below applies only to that*/
             position: fixed;
@@ -80,6 +81,15 @@
         #imageBrain img {
             max-width: 100%;  /*adjusts the image size within the available space*/
             max-height: 80%; /*limits the height of the image*/
+        }
+
+        header { /* bakcround image for the header */
+            background-image: url('your-image.jpg'); /* Replace with your image URL */
+            background-size: cover; /* Makes the image cover the entire area */
+            background-position: center; /* Centers the image */
+            text-align: center; /* Centers the text */
+            color: white; /* Makes the text white for contrast */
+            padding: 50px 20px; /* Adds some space inside the header */
         }
 
     </style>
