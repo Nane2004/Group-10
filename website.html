@@ -72,17 +72,39 @@
             background-color: #fff954;
         }
 
-        /*styling for the box that displays functions*/
         #functionBox {
-            position: absolute; /*absolute allows the box to be moved anywhere on the page*/
-            bottom: 30px;
-            right: 30px;
+            position: fixed; /* Changed from absolute to fixed */
+            bottom: 30px; /* Distance from the bottom of the viewport */
+            right: 30px; /* Distance from the right of the viewport */
             width: 200px;
             padding: 10px;
             background-color: rgb(144, 197, 238);
             border: 2px solid black;
             border-radius: 5px;
-            display: none; /*none hides the box*/
+            display: none; /* Initially hidden */
+            z-index: 1000; /* Ensures it stays on top of other elements */
+        }
+
+        #closeButton {
+            position: absolute; /* Position within the parent (functionBox) */
+            top: 5px; /* Distance from the top of functionBox */
+            right: 5px; /* Distance from the right of functionBox */
+            background-color: rgb(249, 0, 0);
+            color: white;
+            border: 1px solid black;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 12px;
+            line-height: 20px;
+            padding: 0;
+            }
+
+
+        #closeButton:hover {
+            background-color: darkred;
         }
 
         #functionBox h3 {
@@ -135,133 +157,107 @@
 
     <!--assinging variable "functionBox" for the function descriptions-->
     <div id="functionBox">
+        <button id="closeButton">x</button>
         <h3>Function</h3>
         <p id="functionDescription"> Click on a brain part to see its function. </p>
     </div>
 
-    <script> // the script is written with JavaScript
-    
-        // an array of brain parts with id from Wikidata
-        // tried my best to classify them
-        const wikidataItems = { // const variable can be modified later on too
-            
+    <script>
+        // Array of brain parts with Wikidata IDs
+        const wikidataItems = {
             'Cerebral Cortex': [
-            { id: 'Q749520'}, // Frontal Lobe
-            { id: 'Q848340'}, // Occipital Lobe
-            { id: 'Q815334'}, // Parietal Lobe
-            { id: 'Q744385'}, // Temporal Lobe
-            { id: 'Q728285'},], // Broca's area
-
-            'Limbic System' : [
-            { id: 'Q11345481'}, // Limbic Lobe
-            { id: 'Q338924'}, // Amygdala
-            { id: 'Q48360'}, // Hippocampus
-            { id: 'Q184215'}, // Thalamus
-            { id: 'Q164386'}, // Hypothalamus"
-            { id: 'Q156871'},],  // Pituitary Gland
-
-
-            'Brain Stem' : [
-            { id: 'Q189033'}, // medulla oblongata
-            { id: 'Q185080'}, // Mesencephalon/midbrain
-            { id: 'Q192570'},], // Pons
-
-            'Other Areas' : [
-            { id: 'Q130983'},],}  // Cerebellum
-
-        // a function to fetch labels from Wikidata
+                { id: 'Q749520' }, // Frontal Lobe
+                { id: 'Q848340' }, // Occipital Lobe
+                { id: 'Q815334' }, // Parietal Lobe
+                { id: 'Q744385' }, // Temporal Lobe
+                { id: 'Q728285' }, // Broca's area
+            ],
+            'Limbic System': [
+                { id: 'Q11345481' }, // Limbic Lobe
+                { id: 'Q338924' }, // Amygdala
+                { id: 'Q48360' }, // Hippocampus
+                { id: 'Q184215' }, // Thalamus
+                { id: 'Q164386' }, // Hypothalamus
+                { id: 'Q156871' }, // Pituitary Gland
+            ],
+            'Brain Stem': [
+                { id: 'Q189033' }, // Medulla Oblongata
+                { id: 'Q185080' }, // Mesencephalon/Midbrain
+                { id: 'Q192570' }, // Pons
+            ],
+            'Other Areas': [
+                { id: 'Q130983' }, // Cerebellum
+            ],
+        };
+    
+        // Function to fetch labels from Wikidata
         async function fetchLabel(id) {
             const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${id}&format=json&props=labels&languages=en&origin=*`;
             try {
                 const response = await fetch(url);
                 const data = await response.json();
-                return data.entities[id].labels.en.value;
+                return data.entities[id]?.labels.en?.value || 'Unknown';
             } catch (error) {
                 console.error(`Error fetching label for ${id}:`, error);
                 return 'Unknown';
             }
         }
-
-        function capitalizeFirstLetterOfEachWord(string) {
-    return string.replace(/\b\w/g, function(match) {
-        return match.toUpperCase();
-    });
-}
+    
         // Function to fetch description from Wikidata
         async function fetchDescription(id) {
             const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${id}&format=json&props=descriptions&languages=en&origin=*`;
             try {
                 const response = await fetch(url);
                 const data = await response.json();
-                return data.entities[id].descriptions.en.value || 'No description available';
+                return data.entities[id]?.descriptions.en?.value || 'No description available';
             } catch (error) {
                 console.error(`Error fetching description for ${id}:`, error);
                 return 'No description available';
             }
         }
-        // Create the left box element
-        const styleBox = document.createElement('div');
-        styleBox.id = 'styleBox';
-
-        // Create the heading for the left box
-        const heading = document.createElement('h3');
-        heading.textContent = 'Brain Parts';
-        styleBox.appendChild(heading);
-
-        // Create the right box for "Function"
-        const functionBox = document.createElement('div');
-        functionBox.id = 'functionBox';
-        functionBox.style.display = 'none';  // Initially hide the function box
-
-        // Create the heading for the right box
-        const functionHeading = document.createElement('h3');
-        functionHeading.textContent = 'Function';
-        functionBox.appendChild(functionHeading);
-
-        // Create a paragraph for displaying the function description
-        const functionDescription = document.createElement('p');
-        functionDescription.id = 'functionDescription';
-        functionDescription.textContent = 'Click on a brain part to see its function.';
-        functionBox.appendChild(functionDescription);
-
-        // Append the right box to the body
-        document.body.appendChild(functionBox);
-
-        // Populate the left box with buttons after fetching labels
+    
+        // Populate buttons in the styleBox
         async function populateButtons() {
+            const styleBox = document.getElementById('styleBox'); // Use existing styleBox
+    
             for (const category in wikidataItems) {
-                // Create a heading for each category
+                // Create and append a heading for each category
                 const categoryHeading = document.createElement('h4');
-                categoryHeading.textContent = category; // Set the category name as the heading
+                categoryHeading.textContent = category;
                 styleBox.appendChild(categoryHeading);
-
-                // Iterate over each item in the current category
+    
+                //Ierate over each item in the current category
                 for (const item of wikidataItems[category]) {
-                    const label = await fetchLabel(item.id); // Fetch the label from Wikidata
-                    const capitalizedLabel = capitalizeFirstLetterOfEachWord(label);
+                    const label = await fetchLabel(item.id);
+    
+                    // Create and style a button for each brain part
                     const button = document.createElement('button');
-                    button.textContent = label; // Set button text to fetched label
-                        
-                    // Add click event to fetch description and display it in functionBox
+                    button.textContent = label;
+    
+                    // Add click event listener to show the functionBox
                     button.addEventListener('click', async () => {
-                    const description = await fetchDescription(item.id);
-                    functionDescription.textContent = `${label}: ${description}`; // Display label and description
-                    functionBox.style.display = 'block'; // Show the function box
+                        const functionBox = document.getElementById('functionBox'); //additional new line
+                        const functionDescription = document.getElementById('functionDescription'); //additional new line
+    
+                        const description = await fetchDescription(item.id);
+                        functionDescription.textContent = `${label}: ${description}`;
+                        functionBox.style.display = 'block'; // Show the functionBox
                     });
-
-                    // Append the button to the styleBox
+    
                     styleBox.appendChild(button);
                 }
             }
         }
-
-        // Append the left box to the body
-        document.body.appendChild(styleBox);
-
-        // Fetch labels and populate the box
+    
+        // Add functionality to the close button
+        document.getElementById('closeButton').addEventListener('click', () => {
+            const functionBox = document.getElementById('functionBox');
+            functionBox.style.display = 'none'; // Hide the functionBox
+        });
+    
+        // Populate the buttons when the page loads
         populateButtons();
-
-    </script>
+    </script>    
 
 </body>
 </html>
