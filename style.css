@@ -16,14 +16,15 @@ body { /*the color of the website*/
     box-sizing: border-box;
 }
 
-#maintext { /*descriptive text*/
-    margin: 0;
-    padding-left: 250px;
-    font-family: Arial, sans-serif;
-}
+/*#maintext { /*descriptive text*/
+
+/*}
 
 /* Style for the container with content */
  .container {
+    margin: 0;
+    padding-left: 250px;
+    font-family: Arial, sans-serif;
     width: 80%; /* 80% of the page width */
     max-width: 1200px; /* Set a max width for large screens */
     margin: 0 auto; /* Center the container horizontally */
@@ -34,7 +35,7 @@ body { /*the color of the website*/
 /*styling the box for the list of brain parts*/
 #styleBox { /* # is an id selector, the style described below applies only to that*/
     position: fixed;
-    bottom: 100px; /*the box will be 10px from the bottom of the page*/
+    bottom: 10px; /*the box will be 10px from the bottom of the page*/
     left: 10px;
     width: 300px;
     height: 450px;
