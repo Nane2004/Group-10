@@ -1,0 +1,123 @@
+body { /*the color of the website*/
+    background-color: rgb(254, 254, 254);
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+#header {
+    background-image: url('images/backroundimagefinal.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-align: center;
+    padding: 50px 0; /* Adds padding around the header */
+    color: white; /* Make the text white for contrast */
+    height: 150px;
+    box-sizing: border-box;
+}
+
+#maintext { /*descriptive text*/
+    margin: 0;
+    padding-left: 250px;
+    font-family: Arial, sans-serif;
+}
+
+/* Style for the container with content */
+.container {
+    width: 80%; /* 80% of the page width */
+    max-width: 1200px; /* Set a max width for large screens */
+    margin: 0 auto; /* Center the container horizontally */
+    background-color: rgb(242, 250, 252); /* White background for content */
+    padding: 20px; /* Add padding around content */
+    border-radius: 0px; /* rounded corners */
+}
+
+/*styling the box for the list of brain parts*/
+#styleBox { /* # is an id selector, the style described below applies only to that*/
+    position: fixed;
+    bottom: 10px; /*the box will be 10px from the bottom of the page*/
+    left: 10px;
+    width: 200px;
+    padding: 10px; /*padding creates space between the border and the content*/
+    background-color: lightblue;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+/*styling the heading of the box of the list, h1 is the biggest in size and h6 the smallest*/
+#styleBox h3 {
+    margin: 0 0 10px 0;
+    text-align: center;
+    font-size: 16px;
+}
+/*styling the buttons inside the box*/
+#styleBox button { /*CSS is (lower-higher)case-sensitive, check that the id is always written correctly*/
+    display: block;
+    width: 100%;
+    margin: 5px 0;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 3px;
+    background-color: white;
+    cursor: pointer;
+}
+
+/*when the mouse hovers over the button then the color of the button changes slightly*/
+#styleBox button:hover {
+    background-color: #fff954;
+}
+
+#functionBox {
+    position: fixed; /* Changed from absolute to fixed */
+    bottom: 30px; /* Distance from the bottom of the viewport */
+    right: 30px; /* Distance from the right of the viewport */
+    width: 200px;
+    padding: 10px;
+    background-color: rgb(144, 197, 238);
+    border: 2px solid black;
+    border-radius: 5px;
+    display: none; /* Initially hidden */
+    z-index: 1000; /* Ensures it stays on top of other elements */
+}
+
+#closeButton {
+    position: absolute; /* Position within the parent (functionBox) */
+    top: 5px; /* Distance from the top of functionBox */
+    right: 5px; /* Distance from the right of functionBox */
+    background-color: rgb(249, 0, 0);
+    color: white;
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 12px;
+    line-height: 20px;
+    padding: 0;
+    }
+
+
+#closeButton:hover {
+    background-color: darkred;
+}
+
+#functionBox h3 {
+    margin: 0;
+    text-align: center;
+    font-size: 16px;
+}
+
+/*adding the initial SVG image of the brain onto the website*/
+#imageBrain {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /*vh stands for viewport height and it makes sure the image is centered vertically*/
+    width: 100%;
+}
+
+#imageBrain img {
+    max-width: 100%;  /*adjusts the image size within the available space*/
+    max-height: 80%; /*limits the height of the image*/
+}
