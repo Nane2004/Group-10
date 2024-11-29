@@ -31,7 +31,9 @@ body { /*the color of the website*/
     margin: 0 auto; /* Center the container horizontally */
     background-color: rgb(185, 224, 233); /* White background for content */
     padding: 20px; /* Add padding around content */
-    border-radius: 0px; /* rounded corners */}
+    border-radius: 0px; /* rounded corners */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5); /* Optional: subtle shadow effect */
+}
 
 /*styling the box for the list of brain parts*/
 #styleBox { /* # is an id selector, the style described below applies only to that*/
@@ -41,7 +43,7 @@ body { /*the color of the website*/
     width: 300px;
     height: 470px;
     padding: 10px; /*padding creates space between the border and the content*/
-    background-color: rgb(82, 102, 114);
+    background-color: rgb(139, 185, 213);
     /* border: 2px solid black; */
     overflow-y: auto;  /* Enable vertical scrolling */
     border-radius: 5px;
@@ -63,6 +65,7 @@ body { /*the color of the website*/
     border-radius: 3px;
     background-color: white;
     cursor: pointer;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* subtle shadow effect */
 }
 
 /*when the mouse hovers over the button then the color of the button changes slightly*/
@@ -126,4 +129,26 @@ body { /*the color of the website*/
 #imageBrain img {
     max-width: 100%;  /*adjusts the image size within the available space*/
     max-height: 80%; /*limits the height of the image*/
+}
+
+#footerBar {
+    position: fixed; /* Keeps the footer at the bottom */
+    bottom: 0; /* Zero pixels from the bottom */
+    width: 100%; /* Full width of the viewport */
+    background-color: rgb(118, 118, 118); /* Dark background for contrast */
+    color: white; /* White text color */
+    text-align: center; /* Center-align the text */
+    padding: 0px 0; /* Padding for comfortable spacing */
+    font-size: 10px; /* Small but readable font size */
+    z-index: 999; /* Ensures it stays above other elements */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* subtle shadow effect */
+}
+
+#footerBar a {
+    color: lightblue; /* Makes links stand out */
+    text-decoration: none; /* Removes underline from links */
+}
+
+#footerBar a:hover {
+    text-decoration: underline; /* Adds underline on hover for clarity */
 }
