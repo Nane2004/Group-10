@@ -24,6 +24,7 @@ body { /*the color of the website*/
  .container {
     margin: 0;
     padding-left: 250px;
+    padding-bottom: 0;
     font-family: Arial, sans-serif;
     width: 80%; /* 80% of the page width */
     max-width: 1200px; /* Set a max width for large screens */
@@ -112,10 +113,13 @@ body { /*the color of the website*/
 
 /*adding the initial SVG image of the brain onto the website*/
 #imageBrain {
+    position: absolute;
+    top: 0px; /*makes sure the image is as high on the page as possible*/
+    left: 50%;
+    transform: translateX(-50%); /* Center horizontally */
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /*vh stands for viewport height and it makes sure the image is centered vertically*/
     width: 100%;
 }
 
