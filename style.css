@@ -35,10 +35,10 @@ body { /*the color of the website*/
 /*styling the box for the list of brain parts*/
 #styleBox { /* # is an id selector, the style described below applies only to that*/
     position: fixed;
-    bottom: 10px; /*the box will be 10px from the bottom of the page*/
+    bottom: 100px; /*the box will be 10px from the bottom of the page*/
     left: 10px;
     width: 300px;
-    height: 450px;
+    height: 470px;
     padding: 10px; /*padding creates space between the border and the content*/
     background-color: rgb(190, 207, 213);
     /* border: 2px solid black; */
