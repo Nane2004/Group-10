@@ -35,7 +35,7 @@ body { /*the color of the website*/
 /*styling the box for the list of brain parts*/
 #styleBox { /* # is an id selector, the style described below applies only to that*/
     position: fixed;
-    bottom: 100px; /*the box will be 10px from the bottom of the page*/
+    bottom: 2px; /*the box will be 10px from the bottom of the page*/
     left: 10px;
     width: 300px;
     height: 470px;
