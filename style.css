@@ -85,6 +85,7 @@ body { /*the color of the website*/
     border-radius: 5px;
     display: none; /* Initially hidden */
     z-index: 1000; /* Ensures it stays on top of other elements */
+    transition: 2.5s;
 }
 
 #closeButton {
@@ -102,6 +103,9 @@ body { /*the color of the website*/
     font-size: 12px;
     line-height: 20px;
     padding: 0;
+    padding-left: 1px;
+    padding-bottom: 1px;
+    padding-right: 2px;
     }
 
 
