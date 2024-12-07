@@ -97,31 +97,42 @@
         'Q130983': 'images/Cerebellum.svg',
     };
 
-    // Function to fetch labels from Wikidata by using the items id
-    async function fetchLabel(id) { // asyn stants for asynchronous function: allows tasks to run in parallel, so they do not block executions of other tasks (making it flow easily)
-        const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${id}&format=json&props=labels&languages=en&origin=*`;
-        try {
-            const response = await fetch(url); // await is a keyword to pause the function execution until a promise resolves or rejects, and it is only used in async function to make it look like a sync function more - makes it easier to debug
-            const data = await response.json();
-            return data.entities[id]?.labels.en?.value || 'Unknown';
-        } catch (error) {
-            console.error(`Error fetching label for ${id}:`, error);
-            return 'Unknown'; // we the await, like said before, to make it easier to debug because the errors can be cought here in a sigle "try...catch" instead of multiple "catch()" calls like async functions do
-        }
-    }
+    // Fetching labels and descriptions from Wikidata
+var endpointUrl = 'https://query.wikidata.org/sparql',
+	sparqlQuery = "SELECT ?BrainPart ?BrainPartLabel ?BrainPartDescription\n" +
+        "       \n" +
+        "WHERE {\n" +
+        "  VALUES ?BrainPart {\n" +
+        "    wd:Q815334  # Parietal lobe\n" +
+        "    wd:Q744385  # Temporal lobe\n" +
+        "    wd:Q848340  # Occipital lobe\n" +
+        "    wd:Q749520  # Frontal lobe\n" +
+        "    wd:Q338924  # Amygdala\n" +
+        "    wd:Q130983  # Cerebellum\n" +
+        "    wd:Q11345481  # Limbic lobe\n" +
+        "    wd:Q184215  # Thalamus\n" +
+        "    wd:Q164386  # Hypothalamus \n" +
+        "    wd:Q192570  # Pons\n" +
+        "    wd:Q48360   # Hippocampus\n" +
+        "    wd:Q728285  # Broca's area\n" +
+        "    wd:Q156871  # Pituitary gland\n" +
+        "  }\n" +
+        "\n" +
+        "  # Get the description of each brain part\n" +
+        "  ?BrainPart schema:description ?description.\n" +
+        "  FILTER (LANG(?description) = \"en\")  # Limit to English descriptions\n" +
+        "\n" +
+        "  # Get English labels for each entity\n" +
+        "  SERVICE wikibase:label { \n" +
+        "    bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\".\n" +
+        "  }\n" +
+        "}";
 
-    // Function to fetch descriptions from Wikidata
-    async function fetchDescription(id) { // here its using the same ids to get the description part of it
-        const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${id}&format=json&props=descriptions&languages=en&origin=*`;
-        try {
-            const response = await fetch(url);
-            const data = await response.json();
-            return data.entities[id]?.descriptions.en?.value || 'No description available';
-        } catch (error) {
-            console.error(`Error fetching description for ${id}:`, error);
-            return 'No description available';
-        }
-    }
+makeSPARQLQuery( endpointUrl, sparqlQuery, function( data ) {
+		$( 'body' ).append( $( '<pre>' ).text( JSON.stringify( data ) ) );
+		console.log( data );
+	}
+);
 
     // Populate buttons and add interactivity - gets the stylebox container and adds buttons to each part of the brain dynamically
     async function populateButtons() { 
@@ -147,7 +158,7 @@
                     const description = await fetchDescription(item.id);
                     functionDescription.textContent = `${label}: ${description}`;
                     functionBox.style.display = 'block';
-
+ 
                     // Update the image based on the ID
                     const brainImage = document.getElementById('brainImage'); // Ensure brainImage exists in the DOM
                     const newImagePath = imageMap[item.id];
