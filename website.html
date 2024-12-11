@@ -1,40 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html> <!--defining the document type, the code is characteristic to html--> 
+<html lang="en"> <!-- starts the HTML doc and sets the language of the content on the website-->
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brain Parts Illustration with Wikidata</title>
-    <link rel="stylesheet" href="style.css">
+<head> <!--start the heading-->
+
+    <meta charset="UTF-8"> <!--UTF-8 makes other funky symbols accessible that are not typical in the english alphabet-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--scale and display of the webpage, so visual part of the website-->
+        <!--viewport stands for the visible area of the webpage, to make sure the mage display is correct in different services -->
+    <title>Brain Parts Illustration with Wikidata</title> <!--title of the page that seen in the browser tab and search engine results-->
+    
+    <link rel="stylesheet" href="style.css"> <!--the design layout, with the link to the external css file-->
+
 </head>
 
-<body>
-    <header id="header">
-        <h1 style="text-align: center; margin-top: 0; font-family: 'Georgia', sans-serif; font-weight: 700; font-size: 4em; letter-spacing: 5px; text-shadow: 2px 2px 5px rgba(163, 167, 200, 0.588);">
+<body> <!--the body section is meant for content display-->
+
+    <!--h1 stands for the main heading on the page itself-->
+    <header id="header">  <!-- div div is a section/group/division for elements - it's the structural building block, it groups and organizes the content by divinding them and it makes it easier to manipulate them all together -->
+        <h1 style="text-align: center; margin-top: 0; font-family: 'Georgia', sans-serif; font-weight: 700; font-size: 4em; letter-spacing: 5px; text-shadow: 2px 2px 5px rgba(163, 167, 200, 0.588);"> <!-- h1 is for the main heading and the style is linking to the external css file to to have a tyled title -->
             BRAIN ANATOMY AND PHYSIOLOGY
         </h1>
     </header>
 
+    <!--p stands for paragraph-->
     <main id="main-content" class="container">
         <section id="introduction">
             <p style="text-align: center;">
-                This website illustrates human brain anatomy and the functional specialization of its regions to support biomedical research and educational applications. Interactivity can effectively illustrate complex brain functions like memory, movement, and sensory processing. This visualization design hopefully improves user engagement and knowledge retention. Click on any part on the image or in the list on the left side to see detailed information fetched from Wikidata and Wikipedia. The image is from this site made by that person (to be updated).
+                This website illustrates human brain anatomy and the functional specialization of its regions to support biomedical research and educational applications.
+            Interactivity can effectively illustrate complex brain functions like memory, movement, and sensory processing.
+            This visualization design aims to improve user engagement and knowledge retention.
+            Click on any brain part listed on the box to find out more.
             </p>
         </section>
 
         <section id="brain-visualization" style="text-align: center;">
             <div id="image-container" style="position: relative; display: inline-block;">
                 <img id="brainImage" src="images/file brain 2024-11-15 at 11.13.10.svg" 
-                     alt="Brain Anatomy" width="700" height="500" style="display: block; margin: auto;">
+                     alt="Brain Anatomy" width="700" height="500" style="display: block; margin: auto;"> <!-- putting the central neurons background -->
                 <div id="overlayContainer" style="position: absolute; top: 0; left: 0; width: 700px; height: 500px; pointer-events: none;"></div>
             </div>
         </section>
 
-        <section id="interaction-panel">
-            <div id="styleBox"></div>
-
-            <div id="functionBox" style="display: none;">
-                <button id="closeButton" aria-label="Close function box">x</button>
+        <section id="interaction-panel"> <!--assinging variable "styleBox" for the list of brain parts-->
+            <div id="styleBox"></div> <!-- holds the buttons for the brain parts -->
+            
+            <!--assinging variable "functionBox" for the function descriptions-->
+            <div id="functionBox" style="display: none;"> <!-- makes the functions box with the deatils appear together with the image -->
+                <button id="closeButton" aria-label="Close function box">x</button> <!-- the close button makes the function box and the brain image related to it vanish -->
                 <h3>Function</h3>
                 <p id="functionDescription">Click on a brain part to see its function.</p>
                 <p id="wikiLink" style="margin-top: 10px;"></p>
