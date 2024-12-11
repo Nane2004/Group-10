@@ -123,58 +123,112 @@
         }
     }
 
-    // Populate buttons and add interactivity - gets the stylebox container and adds buttons to each part of the brain dynamically
-    async function populateButtons() { 
-        const styleBox = document.getElementById('styleBox'); // retrieving the elemnt by using its unique id
+    // Map of IDs to Wikipedia links
+const wikipediaLinks = {
+    'Q749520': 'https://en.wikipedia.org/wiki/Frontal_lobe',
+    'Q848340': 'https://en.wikipedia.org/wiki/Occipital_lobe',
+    'Q815334': 'https://en.wikipedia.org/wiki/Parietal_lobe',
+    'Q744385': 'https://en.wikipedia.org/wiki/Temporal_lobe',
+    'Q728285': 'https://en.wikipedia.org/wiki/Broca%27s_area',
+    'Q11345481': 'https://en.wikipedia.org/wiki/Limbic_lobe',
+    'Q338924': 'https://en.wikipedia.org/wiki/Amygdala',
+    'Q48360': 'https://en.wikipedia.org/wiki/Hippocampus',
+    'Q184215': 'https://en.wikipedia.org/wiki/Thalamus',
+    'Q164386': 'https://en.wikipedia.org/wiki/Hypothalamus',
+    'Q156871': 'https://en.wikipedia.org/wiki/Pituitary_gland',
+    'Q189033': 'https://en.wikipedia.org/wiki/Medulla_oblongata',
+    'Q185080': 'https://en.wikipedia.org/wiki/Midbrain',
+    'Q192570': 'https://en.wikipedia.org/wiki/Pons',
+    'Q130983': 'https://en.wikipedia.org/wiki/Cerebellum'
+};
 
-        for (const category in wikidataItems) {
-            const categoryHeading = document.createElement('h4');
-            categoryHeading.textContent = category;
-            styleBox.appendChild(categoryHeading); // creates the heading and stylebox
+// Function to fetch labels from Wikidata by using the items ID
+async function fetchLabel(id) {
+    const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${id}&format=json&props=labels&languages=en&origin=*`;
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        return data.entities[id]?.labels.en?.value || 'Unknown';
+    } catch (error) {
+        console.error(`Error fetching label for ${id}:`, error);
+        return 'Unknown';
+    }
+}
 
-            for (const item of wikidataItems[category]) {
-                const label = await fetchLabel(item.id);
+// Function to fetch descriptions from Wikidata
+async function fetchDescription(id) {
+    const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${id}&format=json&props=descriptions&languages=en&origin=*`;
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        return data.entities[id]?.descriptions.en?.value || 'No description available';
+    } catch (error) {
+        console.error(`Error fetching description for ${id}:`, error);
+        return 'No description available';
+    }
+}
 
-                const button = document.createElement('button');
-                button.textContent = label;
+// Populate buttons and add interactivity
+async function populateButtons() {
+    const styleBox = document.getElementById('styleBox');
 
-                // Add event listener to handle button clicks
-                button.addEventListener('click', async () => { // addEventListener is to attach an event handler to the HTML element - it listens to specific events, like a click, or an element and executes a provided function when that event occurs
-                    const functionBox = document.getElementById('functionBox');
-                    const functionDescription = document.getElementById('functionDescription');
+    for (const category in wikidataItems) {
+        const categoryHeading = document.createElement('h4');
+        categoryHeading.textContent = category;
+        styleBox.appendChild(categoryHeading);
 
-                    // Fetch and display the function description
-                    const description = await fetchDescription(item.id);
+        for (const item of wikidataItems[category]) {
+            const label = await fetchLabel(item.id);
+
+            const button = document.createElement('button');
+            button.textContent = label;
+
+            // Add event listener to handle button clicks
+            button.addEventListener('click', async () => {
+                const functionBox = document.getElementById('functionBox');
+                const functionDescription = document.getElementById('functionDescription');
+
+                // Fetch and display the function description
+                const description = await fetchDescription(item.id);
+
+                // Check for a corresponding Wikipedia link
+                const wikipediaLink = wikipediaLinks[item.id];
+                if (wikipediaLink) {
+                    functionDescription.innerHTML = `${label}: ${description} <br> <a href="${wikipediaLink}" target="_blank">Learn more</a>`;
+                } else {
                     functionDescription.textContent = `${label}: ${description}`;
-                    functionBox.style.display = 'block';
+                }
 
-                    // Update the image based on the ID
-                    const brainImage = document.getElementById('brainImage'); // Ensure brainImage exists in the DOM
-                    const newImagePath = imageMap[item.id];
-                    if (newImagePath) {
-                        brainImage.src = newImagePath;
-                    } else {
-                        console.warn(`No image mapped for ID: ${item.id}`); // console is just a built in debugging tool that allows us to interact and inspect the code - so if any error occurs, the "fetch..." function logs the error in the console and it returns "unkown" 
-                    }
-                });
+                functionBox.style.display = 'block';
 
-                styleBox.appendChild(button); // takes an element (in this case "button") and adds it to the end of another element (in this case the stylebox)
-            } // a new button that was created earlier on the script is added to the stylebox container
+                // Update the image based on the ID
+                const brainImage = document.getElementById('brainImage');
+                const newImagePath = imageMap[item.id];
+                if (newImagePath) {
+                    brainImage.src = newImagePath;
+                } else {
+                    console.warn(`No image mapped for ID: ${item.id}`);
+                }
+            });
+
+            styleBox.appendChild(button);
         }
     }
+}
 
-    // Add functionality to the close button
-    document.getElementById('closeButton').addEventListener('click', () => {
-        const functionBox = document.getElementById('functionBox');
-        functionBox.style.display = 'none'; // Hide the function box and resets the brain image
+// Add functionality to the close button
+document.getElementById('closeButton').addEventListener('click', () => {
+    const functionBox = document.getElementById('functionBox');
+    functionBox.style.display = 'none';
 
-        // Reset the image to the original
-        const brainImage = document.getElementById('brainImage');
-        brainImage.src = 'images/file brain 2024-11-15 at 11.13.10.svg';
-    });
+    // Reset the image to the original
+    const brainImage = document.getElementById('brainImage');
+    brainImage.src = 'images/file brain 2024-11-15 at 11.13.10.svg';
+});
 
-    // Populate buttons on page load - runs the "populatebuttons"to load the interactive elements when the page loads
-    populateButtons();
+// Populate buttons on page load
+populateButtons();
+
 </script>
    
 <!-- adding a bar at the bottom of the website for CC licence and references-->
