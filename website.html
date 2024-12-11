@@ -1,242 +1,176 @@
-<!DOCTYPE html> <!--defining the document type, the code is characteristic to html-->
-<html lang="en"> <!-- starts the HTML doc and sets the language of the content on the website-->
-<head> <!--the heading-->
+<!DOCTYPE html>
+<html lang="en">
 
-    <meta charset="UTF-8"> <!--UTF-8 makes other funky symbols accessible that are not typical in the english alphabet-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--scale and display of the webpage, so visual part of the website-->
-    <!--viewport stands for the visible area of the webpage, to make sure the mage display is correct in different services -->
-    <title> Brain Parts Illustration with Wikidata </title> <!--title of the page that seen in the browser tab and search engine results-->
-    
-    <link rel="stylesheet" href="style.css">  <!--the design layout, with the link to the external css file-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Parts Illustration with Wikidata</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-</head> <!--the head section is meant for metadata, links to CSS, and JavaScript imports-->
-
-<body> <!--the body section is meant for content display-->
-    
-    <!--h1 stands for the main heading on the page itself-->
-    <div id="header"> <!-- div div is a section/group/division for elements - it's the structural building block, it groups and organizes the content by divinding them and it makes it easier to manipulate them all together -->
+<body>
+    <header id="header">
         <h1 style="text-align: center; margin-top: 0; font-family: 'Georgia', sans-serif; font-weight: 700; font-size: 4em; letter-spacing: 5px; text-shadow: 2px 2px 5px rgba(163, 167, 200, 0.588);">
-            BRAIN ANATOMY AND PHYSIOLOGY </h1> <!-- h1 is for the main heading and the style is linking to the external css file to to have a tyled title -->
-    </div>
-    
-    <div id="maintext" class="container">
-        <!--p stands for paragraph-->
-        <p style="text-align: center;">
-            This website illustrates human brain anatomy and the functional specialization of its regions to support biomedical research and educational applications.
-            Interactivity can effectively illustrate complex brain functions like memory, movement, and sensory processing.
-            This visualization design aims to improve user engagement and knowledge retention.
-            Click on any brain part listed on the box to find out more. </p>
+            BRAIN ANATOMY AND PHYSIOLOGY
+        </h1>
+    </header>
 
-        <div id="imageBrain" style="position: relative;">
-            <img id="brainImage" src="images/file brain 2024-11-15 at 11.13.10.svg" 
-                 width="700" height="500" style="display: block; margin: auto;"> <!-- putting the central brain image -->
-        </div>        
-    </div>
+    <main id="main-content" class="container">
+        <section id="introduction">
+            <p style="text-align: center;">
+                This website illustrates human brain anatomy and the functional specialization of its regions to support biomedical research and educational applications. Interactivity can effectively illustrate complex brain functions like memory, movement, and sensory processing. This visualization design hopefully improves user engagement and knowledge retention. Click on any part on the image or in the list on the left side to see detailed information fetched from Wikidata and Wikipedia. The image is from this site made by that person (to be updated).
+            </p>
+        </section>
 
-    <!--assinging variable "styleBox" for the list of brain parts-->
-    <div id="styleBox"></div> <!-- holds the buttons for the brain parts -->
+        <section id="brain-visualization" style="text-align: center;">
+            <div id="image-container" style="position: relative; display: inline-block;">
+                <img id="brainImage" src="images/file brain 2024-11-15 at 11.13.10.svg" 
+                     alt="Brain Anatomy" width="700" height="500" style="display: block; margin: auto;">
+                <div id="overlayContainer" style="position: absolute; top: 0; left: 0; width: 700px; height: 500px; pointer-events: none;"></div>
+            </div>
+        </section>
 
-    <!--assinging variable "functionBox" for the function descriptions-->
-    <div id="functionBox"> <!-- makes the functions box with the deatils appear together with the image -->
-        <button id="closeButton">x</button> <!-- the close button makes the function box and the brain image related to it vanish -->
-        <h3>Function</h3>
-        <p id="functionDescription"> Click on a brain part to see its function. </p>
-    </div>
+        <section id="interaction-panel">
+            <div id="styleBox"></div>
 
-    <!-- Add this overlay container -->
-<div id="overlayContainer" style="position: absolute; top: 0; left: 0; width: 700px; height: 500px; pointer-events: none;">
-    <!-- This will dynamically hold the overlay SVG, so it wil overlay the picture that corresponds the brain specific brain part for interactivity -->
-</div>
+            <div id="functionBox" style="display: none;">
+                <button id="closeButton" aria-label="Close function box">x</button>
+                <h3>Function</h3>
+                <p id="functionDescription">Click on a brain part to see its function.</p>
+                <p id="wikiLink" style="margin-top: 10px;"></p>
+            </div>
+        </section>
+    </main>
 
-<!--the script part, so the java part, is the structure, flow, and purpose of the code are in javascript logic - to add a dynamic behaviourto the boring HTML; loads data from wikidata, updates content based on user interaction, and creates and manages the buttons-->
-<script> 
-    // Array of brain parts with Wikidata IDs
-    const wikidataItems = { // Wkidataitems categorizes the brain parts with its each unique id. And const stands for constant, which is for variables of a code that cannot be reassigned once its initialized
-        'Cerebral Cortex': [
-            { id: 'Q749520' }, // Frontal Lobe
-            { id: 'Q848340' }, // Occipital Lobe
-            { id: 'Q815334' }, // Parietal Lobe
-            { id: 'Q744385' }, // Temporal Lobe
-            { id: 'Q728285' }, // Broca's area
-        ],
-        'Limbic System': [
-            { id: 'Q11345481' }, // Limbic Lobe
-            { id: 'Q338924' }, // Amygdala
-            { id: 'Q48360' }, // Hippocampus
-            { id: 'Q184215' }, // Thalamus
-            { id: 'Q164386' }, // Hypothalamus
-            { id: 'Q156871' }, // Pituitary Gland
-        ],
-        'Brain Stem': [
-            { id: 'Q189033' }, // Medulla Oblongata
-            { id: 'Q185080' }, // Mesencephalon/Midbrain
-            { id: 'Q192570' }, // Pons
-        ],
-        'Other Areas': [
-            { id: 'Q130983' }, // Cerebellum
-        ],
-    };
+    <footer id="footerBar" style="text-align: center; margin-top: 20px;">
+        <p>
+            © <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0 License</a>. 
+            Images used on this site are sourced from <a href="https://stock.adobe.com/" target="_blank" rel="noopener">Adobe Stock</a>.
+        </p>
+    </footer>
 
-    // Map of IDs to image paths
-    const imageMap = { // this is where we are linking the ids to the specific image corresponding to it
-        'Q749520': 'images/Frontal lobe.svg',
-        'Q848340': 'images/Occipital lobe.svg',
-        'Q815334': 'images/Parietal lobe final.svg',
-        'Q744385': 'images/Temporal Lobe.svg',
-        'Q728285': 'images/Brocas area.svg',
-        'Q11345481': 'images/Limbic lobe.svg',
-        'Q338924': 'images/Amygdala.svg',
-        'Q48360': 'images/Hippocampus.svg',
-        'Q184215': 'images/thalamus.svg',
-        'Q164386': 'images/hypothalamus.svg',
-        'Q156871': 'images/pituitary gland.svg',
-        'Q189033': 'images/medulla oblangata.svg',
-        'Q185080': 'images/midbrain(mesencephalon).svg',
-        'Q192570': 'images/Pons (1).svg',
-        'Q130983': 'images/Cerebellum.svg',
-    };
+    <script>
+        const sparqlEndpoint = 'https://query.wikidata.org/sparql';
 
-    // Function to fetch labels from Wikidata by using the items id
-    async function fetchLabel(id) { // asyn stants for asynchronous function: allows tasks to run in parallel, so they do not block executions of other tasks (making it flow easily)
-        const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${id}&format=json&props=labels&languages=en&origin=*`;
-        try {
-            const response = await fetch(url); // await is a keyword to pause the function execution until a promise resolves or rejects, and it is only used in async function to make it look like a sync function more - makes it easier to debug
-            const data = await response.json();
-            return data.entities[id]?.labels.en?.value || 'Unknown';
-        } catch (error) {
-            console.error(`Error fetching label for ${id}:`, error);
-            return 'Unknown'; // we the await, like said before, to make it easier to debug because the errors can be cought here in a sigle "try...catch" instead of multiple "catch()" calls like async functions do
-        }
-    }
-
-    // Function to fetch descriptions from Wikidata
-    async function fetchDescription(id) { // here its using the same ids to get the description part of it
-        const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${id}&format=json&props=descriptions&languages=en&origin=*`;
-        try {
-            const response = await fetch(url);
-            const data = await response.json();
-            return data.entities[id]?.descriptions.en?.value || 'No description available';
-        } catch (error) {
-            console.error(`Error fetching description for ${id}:`, error);
-            return 'No description available';
-        }
-    }
-
-    // Map of IDs to Wikipedia links
-const wikipediaLinks = {
-    'Q749520': 'https://en.wikipedia.org/wiki/Frontal_lobe',
-    'Q848340': 'https://en.wikipedia.org/wiki/Occipital_lobe',
-    'Q815334': 'https://en.wikipedia.org/wiki/Parietal_lobe',
-    'Q744385': 'https://en.wikipedia.org/wiki/Temporal_lobe',
-    'Q728285': 'https://en.wikipedia.org/wiki/Broca%27s_area',
-    'Q11345481': 'https://en.wikipedia.org/wiki/Limbic_lobe',
-    'Q338924': 'https://en.wikipedia.org/wiki/Amygdala',
-    'Q48360': 'https://en.wikipedia.org/wiki/Hippocampus',
-    'Q184215': 'https://en.wikipedia.org/wiki/Thalamus',
-    'Q164386': 'https://en.wikipedia.org/wiki/Hypothalamus',
-    'Q156871': 'https://en.wikipedia.org/wiki/Pituitary_gland',
-    'Q189033': 'https://en.wikipedia.org/wiki/Medulla_oblongata',
-    'Q185080': 'https://en.wikipedia.org/wiki/Midbrain',
-    'Q192570': 'https://en.wikipedia.org/wiki/Pons',
-    'Q130983': 'https://en.wikipedia.org/wiki/Cerebellum'
-};
-
-// Function to fetch labels from Wikidata by using the items ID
-async function fetchLabel(id) {
-    const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${id}&format=json&props=labels&languages=en&origin=*`;
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        return data.entities[id]?.labels.en?.value || 'Unknown';
-    } catch (error) {
-        console.error(`Error fetching label for ${id}:`, error);
-        return 'Unknown';
-    }
-}
-
-// Function to fetch descriptions from Wikidata
-async function fetchDescription(id) {
-    const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${id}&format=json&props=descriptions&languages=en&origin=*`;
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        return data.entities[id]?.descriptions.en?.value || 'No description available';
-    } catch (error) {
-        console.error(`Error fetching description for ${id}:`, error);
-        return 'No description available';
-    }
-}
-
-// Populate buttons and add interactivity
-async function populateButtons() {
-    const styleBox = document.getElementById('styleBox');
-
-    for (const category in wikidataItems) {
-        const categoryHeading = document.createElement('h4');
-        categoryHeading.textContent = category;
-        styleBox.appendChild(categoryHeading);
-
-        for (const item of wikidataItems[category]) {
-            const label = await fetchLabel(item.id);
-
-            const button = document.createElement('button');
-            button.textContent = label;
-
-            // Add event listener to handle button clicks
-            button.addEventListener('click', async () => {
-                const functionBox = document.getElementById('functionBox');
-                const functionDescription = document.getElementById('functionDescription');
-
-                // Fetch and display the function description
-                const description = await fetchDescription(item.id);
-
-                // Check for a corresponding Wikipedia link
-                const wikipediaLink = wikipediaLinks[item.id];
-                if (wikipediaLink) {
-                    functionDescription.innerHTML = `${label}: ${description} <br> <a href="${wikipediaLink}" target="_blank">Learn more</a>`;
-                } else {
-                    functionDescription.textContent = `${label}: ${description}`;
+        const sparqlQuery = `
+            SELECT ?BrainPart ?BrainPartLabel ?BrainPartDescription ?WikipediaArticle
+            WHERE {
+                VALUES ?BrainPart {
+                    wd:Q815334  # Parietal lobe
+                    wd:Q744385  # Temporal lobe
+                    wd:Q848340  # Occipital lobe
+                    wd:Q749520  # Frontal lobe
+                    wd:Q338924  # Amygdala
+                    wd:Q130983  # Cerebellum
+                    wd:Q11345481  # Limbic lobe
+                    wd:Q184215  # Thalamus
+                    wd:Q164386  # Hypothalamus
+                    wd:Q192570  # Pons
+                    wd:Q48360   # Hippocampus
+                    wd:Q728285  # Broca's area
+                    wd:Q156871  # Pituitary gland
                 }
 
-                functionBox.style.display = 'block';
+                ?BrainPart schema:description ?BrainPartDescription.
+                OPTIONAL { ?WikipediaArticle schema:about ?BrainPart; schema:isPartOf <https://en.wikipedia.org/>. }
+                FILTER (LANG(?BrainPartDescription) = "en")
 
-                // Update the image based on the ID
-                const brainImage = document.getElementById('brainImage');
-                const newImagePath = imageMap[item.id];
-                if (newImagePath) {
-                    brainImage.src = newImagePath;
-                } else {
-                    console.warn(`No image mapped for ID: ${item.id}`);
+                SERVICE wikibase:label { 
+                    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
                 }
+            }
+        `;
+
+        const imageMap = {
+            'Q749520': 'images/Frontal lobe.svg',
+            'Q848340': 'images/Occipital lobe.svg',
+            'Q815334': 'images/Parietal lobe final.svg',
+            'Q744385': 'images/Temporal Lobe.svg',
+            'Q728285': 'images/Brocas area.svg',
+            'Q11345481': 'images/Limbic lobe.svg',
+            'Q338924': 'images/Amygdala.svg',
+            'Q48360': 'images/Hippocampus.svg',
+            'Q184215': 'images/thalamus.svg',
+            'Q164386': 'images/hypothalamus.svg',
+            'Q156871': 'images/pituitary gland.svg',
+            'Q189033': 'images/medulla oblongata.svg',
+            'Q185080': 'images/midbrain(mesencephalon).svg',
+            'Q192570': 'images/Pons (1).svg',
+            'Q130983': 'images/Cerebellum.svg',
+        };
+
+        async function fetchBrainPartsData() {
+            const url = `${sparqlEndpoint}?query=${encodeURIComponent(sparqlQuery)}`;
+            try {
+                const response = await fetch(url, {
+                    headers: {
+                        'Accept': 'application/sparql-results+json',
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error(`SPARQL query failed with status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                return data.results.bindings.map((binding) => ({
+                    id: binding.BrainPart.value.split('/').pop(),
+                    label: binding.BrainPartLabel.value,
+                    description: binding.BrainPartDescription.value,
+                    wikipedia: binding.WikipediaArticle ? binding.WikipediaArticle.value : null,
+                }));
+            } catch (error) {
+                console.error('Error fetching data from SPARQL endpoint:', error);
+                return [];
+            }
+        }
+
+        async function populateButtons() {
+            const styleBox = document.getElementById('styleBox');
+            const brainPartsData = await fetchBrainPartsData();
+
+            brainPartsData.forEach((part) => {
+                const button = document.createElement('button');
+                button.textContent = part.label;
+                button.setAttribute('aria-label', `View information about ${part.label}`);
+
+                button.addEventListener('click', () => {
+                    const functionBox = document.getElementById('functionBox');
+                    const functionDescription = document.getElementById('functionDescription');
+                    const wikiLink = document.getElementById('wikiLink');
+
+                    functionDescription.textContent = `${part.label}: ${part.description}`;
+                    if (part.wikipedia) {
+                        wikiLink.innerHTML = `Learn more on <a href="${part.wikipedia}" target="_blank" rel="noopener">Wikipedia</a>`;
+                    } else {
+                        wikiLink.textContent = "Wikipedia article not available.";
+                    }
+
+                    functionBox.style.display = 'block';
+
+                    const brainImage = document.getElementById('brainImage');
+                    const newImagePath = imageMap[part.id];
+                    if (newImagePath) {
+                        brainImage.src = newImagePath;
+                    } else {
+                        console.warn(`No image mapped for ID: ${part.id}`);
+                    }
+                });
+
+                styleBox.appendChild(button);
             });
-
-            styleBox.appendChild(button);
         }
-    }
-}
 
-// Add functionality to the close button
-document.getElementById('closeButton').addEventListener('click', () => {
-    const functionBox = document.getElementById('functionBox');
-    functionBox.style.display = 'none';
+        document.getElementById('closeButton').addEventListener('click', () => {
+            const functionBox = document.getElementById('functionBox');
+            functionBox.style.display = 'none';
 
-    // Reset the image to the original
-    const brainImage = document.getElementById('brainImage');
-    brainImage.src = 'images/file brain 2024-11-15 at 11.13.10.svg';
-});
+            const brainImage = document.getElementById('brainImage');
+            brainImage.src = 'images/file brain 2024-11-15 at 11.13.10.svg';
+        });
 
-// Populate buttons on page load
-populateButtons();
-
-</script>
-   
-<!-- adding a bar at the bottom of the website for CC licence and references-->
-<footer id="footerBar"> 
-    <p>
-        © <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0 License</a>. 
-        Images used on this site are sourced from <a href="https://stock.adobe.com/nl/images/human-brain-vector-illustration-top-view-side-view-and-sagittal-section/486058325?prev_url=detail" target="_blank">Adobe Stock</a>.
-    </p>
-</footer>
-
+        populateButtons();
+    </script>
 </body>
+
 </html>
