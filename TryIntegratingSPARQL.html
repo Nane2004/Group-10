@@ -1,59 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Brain Parts Illustration with Wikidata</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sparqljs@3.5.0/browser/sparql.min.js"></script>
 </head>
-
 <body>
-    <header id="header">
+    <div id="header">
         <h1 style="text-align: center; margin-top: 0; font-family: 'Georgia', sans-serif; font-weight: 700; font-size: 4em; letter-spacing: 5px; text-shadow: 2px 2px 5px rgba(163, 167, 200, 0.588);">
             BRAIN ANATOMY AND PHYSIOLOGY
         </h1>
-    </header>
+    </div>
 
-    <main id="main-content" class="container">
-        <section id="introduction">
-            <p style="text-align: center;">
-                This website illustrates human brain anatomy and the functional specialization of its regions to support biomedical research and educational applications. Interactivity can effectively illustrate complex brain functions like memory, movement, and sensory processing. This visualization design hopefully improves user engagement and knowledge retention. Click on any part on the image or in the list on the left side to see detailed information fetched from Wikidata and Wikipedia. The image is from this site made by that person (to be updated).
-            </p>
-        </section>
-
-        <section id="brain-visualization" style="text-align: center;">
-            <div id="image-container" style="position: relative; display: inline-block;">
-                <img id="brainImage" src="images/file brain 2024-11-15 at 11.13.10.svg" 
-                     alt="Brain Anatomy" width="700" height="500" style="display: block; margin: auto;">
-                <div id="overlayContainer" style="position: absolute; top: 0; left: 0; width: 700px; height: 500px; pointer-events: none;"></div>
-            </div>
-        </section>
-
-        <section id="interaction-panel">
-            <div id="styleBox"></div>
-
-            <div id="functionBox" style="display: none;">
-                <button id="closeButton" aria-label="Close function box">x</button>
-                <h3>Function</h3>
-                <p id="functionDescription">Click on a brain part to see its function.</p>
-                <p id="wikiLink" style="margin-top: 10px;"></p>
-            </div>
-        </section>
-    </main>
-
-    <footer id="footerBar" style="text-align: center; margin-top: 20px;">
-        <p>
-            © <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0 License</a>. 
-            Images used on this site are sourced from <a href="https://stock.adobe.com/" target="_blank" rel="noopener">Adobe Stock</a>.
+    <div id="maintext" class="container">
+        <p style="text-align: center;">
+            This website illustrates human brain anatomy and the functional specialization of its regions to support biomedical research and educational applications.
+            Interactivity can effectively illustrate complex brain functions like memory, movement, and sensory processing.
+            This visualization design hopefully improves user engagement and knowledge retention.
+            Click on any part on the image or in the list on the left side to see detailed information fetched from Wikidata.
         </p>
-    </footer>
+
+        <div id="imageBrain" style="position: relative;">
+            <img id="brainImage" src="images/file brain 2024-11-15 at 11.13.10.svg" 
+                 width="700" height="500" style="display: block; margin: auto;">
+        </div>
+    </div>
+
+    <div id="styleBox"></div>
+
+    <div id="functionBox">
+        <button id="closeButton">x</button>
+        <h3>Function</h3>
+        <p id="functionDescription">Click on a brain part to see its function.</p>
+    </div>
+
+    <div id="overlayContainer" style="position: absolute; top: 0; left: 0; width: 700px; height: 500px; pointer-events: none;"></div>
 
     <script>
-        const sparqlEndpoint = 'https://query.wikidata.org/sparql';
-
-        const sparqlQuery = `
-            SELECT ?BrainPart ?BrainPartLabel ?BrainPartDescription ?WikipediaArticle
+        // SPARQL query to fetch brain parts data
+        const SPARQL_QUERY = `
+            SELECT ?BrainPart ?BrainPartLabel ?BrainPartDescription
             WHERE {
                 VALUES ?BrainPart {
                     wd:Q815334  # Parietal lobe
@@ -72,15 +60,17 @@
                 }
 
                 ?BrainPart schema:description ?BrainPartDescription.
-                OPTIONAL { ?WikipediaArticle schema:about ?BrainPart; schema:isPartOf <https://en.wikipedia.org/>. }
                 FILTER (LANG(?BrainPartDescription) = "en")
 
                 SERVICE wikibase:label { 
                     bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
                 }
-            }
-        `;
+            }`;
 
+        // SPARQL endpoint for Wikidata
+        const SPARQL_ENDPOINT = "https://query.wikidata.org/sparql";
+
+        // Map of IDs to image paths
         const imageMap = {
             'Q749520': 'images/Frontal lobe.svg',
             'Q848340': 'images/Occipital lobe.svg',
@@ -93,68 +83,47 @@
             'Q184215': 'images/thalamus.svg',
             'Q164386': 'images/hypothalamus.svg',
             'Q156871': 'images/pituitary gland.svg',
-            'Q189033': 'images/medulla oblongata.svg',
+            'Q189033': 'images/medulla oblangata.svg',
             'Q185080': 'images/midbrain(mesencephalon).svg',
             'Q192570': 'images/Pons (1).svg',
             'Q130983': 'images/Cerebellum.svg',
         };
 
-        async function fetchBrainPartsData() {
-            const url = `${sparqlEndpoint}?query=${encodeURIComponent(sparqlQuery)}`;
+        async function fetchData() {
+            const url = `${SPARQL_ENDPOINT}?query=${encodeURIComponent(SPARQL_QUERY)}&format=json`;
+
             try {
-                const response = await fetch(url, {
-                    headers: {
-                        'Accept': 'application/sparql-results+json',
-                    },
-                });
-
-                if (!response.ok) {
-                    throw new Error(`SPARQL query failed with status: ${response.status}`);
-                }
-
+                const response = await fetch(url);
                 const data = await response.json();
-                return data.results.bindings.map((binding) => ({
-                    id: binding.BrainPart.value.split('/').pop(),
-                    label: binding.BrainPartLabel.value,
-                    description: binding.BrainPartDescription.value,
-                    wikipedia: binding.WikipediaArticle ? binding.WikipediaArticle.value : null,
-                }));
+                return data.results.bindings;
             } catch (error) {
-                console.error('Error fetching data from SPARQL endpoint:', error);
+                console.error("Error fetching SPARQL data:", error);
                 return [];
             }
         }
 
         async function populateButtons() {
             const styleBox = document.getElementById('styleBox');
-            const brainPartsData = await fetchBrainPartsData();
+            const brainParts = await fetchData();
 
-            brainPartsData.forEach((part) => {
+            brainParts.forEach((part) => {
+                const id = part.BrainPart.value.split('/').pop();
+                const label = part.BrainPartLabel.value;
+                const description = part.BrainPartDescription.value;
+
                 const button = document.createElement('button');
-                button.textContent = part.label;
-                button.setAttribute('aria-label', `View information about ${part.label}`);
+                button.textContent = label;
 
                 button.addEventListener('click', () => {
                     const functionBox = document.getElementById('functionBox');
                     const functionDescription = document.getElementById('functionDescription');
-                    const wikiLink = document.getElementById('wikiLink');
 
-                    functionDescription.textContent = `${part.label}: ${part.description}`;
-                    if (part.wikipedia) {
-                        wikiLink.innerHTML = `Learn more on <a href="${part.wikipedia}" target="_blank" rel="noopener">Wikipedia</a>`;
-                    } else {
-                        wikiLink.textContent = "Wikipedia article not available.";
-                    }
-
-                    functionBox.style.display = 'block';
+                    functionDescription.textContent = `${label}: ${description}`;
 
                     const brainImage = document.getElementById('brainImage');
-                    const newImagePath = imageMap[part.id];
-                    if (newImagePath) {
-                        brainImage.src = newImagePath;
-                    } else {
-                        console.warn(`No image mapped for ID: ${part.id}`);
-                    }
+                    brainImage.src = imageMap[id] || 'images/file brain 2024-11-15 at 11.13.10.svg';
+
+                    functionBox.style.display = 'block';
                 });
 
                 styleBox.appendChild(button);
@@ -162,15 +131,18 @@
         }
 
         document.getElementById('closeButton').addEventListener('click', () => {
-            const functionBox = document.getElementById('functionBox');
-            functionBox.style.display = 'none';
-
-            const brainImage = document.getElementById('brainImage');
-            brainImage.src = 'images/file brain 2024-11-15 at 11.13.10.svg';
+            document.getElementById('functionBox').style.display = 'none';
+            document.getElementById('brainImage').src = 'images/file brain 2024-11-15 at 11.13.10.svg';
         });
 
         populateButtons();
     </script>
-</body>
 
+    <footer id="footerBar">
+        <p>
+            © <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0 License</a>.
+            Images used on this site are sourced from <a href="https://stock.adobe.com/nl/images/human-brain-vector-illustration-top-view-side-view-and-sagittal-section/486058325?prev_url=detail" target="_blank">Adobe Stock</a>.
+        </p>
+    </footer>
+</body>
 </html>
