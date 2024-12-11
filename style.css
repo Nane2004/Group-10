@@ -11,8 +11,8 @@ body { /*the color of the website*/
     background-repeat: no-repeat;
     text-align: center;
     font-family: 'Georgia', sans-serif;
-    padding: 40px 0; /* Adds padding around the header */
-    padding-bottom: 10px;
+    padding: 50px 0; /* Adds padding around the header */
+    padding-bottom: 5px;
     color: white; /* Make the text white for contrast */
     height: 150px;
     box-sizing: border-box;
@@ -51,6 +51,7 @@ body { /*the color of the website*/
     border-radius: 5px;
     direction: rtl; /* Switch content direction to right-to-left */
     text-align: left; /* Restore text alignment to left */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5); /* shadow effect */
 }
 
 /*styling the heading of the box of the list, h1 is the biggest in size and h6 the smallest*/
