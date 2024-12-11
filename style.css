@@ -31,7 +31,7 @@ body { /*the color of the website*/
     width: 80%; /* 80% of the page width */
     max-width: 1200px; /* Set a max width for large screens */
     margin: 0 auto; /* Center the container horizontally */
-    background-color: rgb(185, 224, 233); /* White background for content */
+    background-color: rgb(166, 196, 201); /* White background for content */
     padding: 20px; /* Add padding around content */
     border-radius: 0px; /* rounded corners */
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5); /* shadow effect */
@@ -46,7 +46,7 @@ body { /*the color of the website*/
     height: 470px;
     padding: 10px; /*padding creates space between the border and the content*/
     padding-bottom: 45px;
-    background-color: rgb(139, 185, 213); /* border: 2px solid black; */
+    background-color: rgb(231, 149, 139); /* border: 2px solid black; */
     overflow-y: auto;  /* Enable vertical scrolling */
     border-radius: 5px;
     direction: rtl; /* Switch content direction to right-to-left */
@@ -84,7 +84,7 @@ body { /*the color of the website*/
     width: 200px;
     padding: 10px;
     padding-bottom: 55px;
-    background-color: rgb(144, 197, 238);
+    background-color: rgb(228, 133, 119);
     border: 2px solid black;
     border-radius: 5px;
     display: none; /* Initially hidden */
