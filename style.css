@@ -32,7 +32,7 @@ body { /*the color of the website*/
     background-color: rgb(185, 224, 233); /* White background for content */
     padding: 20px; /* Add padding around content */
     border-radius: 0px; /* rounded corners */
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5); /* Optional: subtle shadow effect */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5); /* shadow effect */
 }
 
 /*styling the box for the list of brain parts*/
