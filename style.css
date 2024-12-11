@@ -10,7 +10,8 @@ body { /*the color of the website*/
     background-position: center;
     background-repeat: no-repeat;
     text-align: center;
-    padding: 50px 0; /* Adds padding around the header */
+    padding: 40px 0; /* Adds padding around the header */
+    padding-bottom: 10px;
     color: white; /* Make the text white for contrast */
     height: 150px;
     box-sizing: border-box;
