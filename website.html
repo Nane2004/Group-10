@@ -5,7 +5,7 @@
 
     <meta charset="UTF-8"> <!--UTF-8 makes other funky symbols accessible that are not typical in the english alphabet-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--scale and display of the webpage, so visual part of the website-->
-        <!--viewport stands for the visible area of the webpage, to make sure the mage display is correct in different services -->
+        <!--viewport stands for the visible area of the webpage, to make sure the mage display is correct in different services-->
     <title>Brain Parts Illustration with Wikidata</title> <!--title of the page that seen in the browser tab and search engine results-->
     
     <link rel="stylesheet" href="style.css"> <!--the design layout, with the link to the external css file-->
@@ -15,13 +15,13 @@
 <body> <!--the body section is meant for content display-->
 
     <!--h1 stands for the main heading on the page itself-->
-    <header id="header">  <!-- div div is a section/group/division for elements - it's the structural building block, it groups and organizes the content by divinding them and it makes it easier to manipulate them all together -->
-        <h1 style="text-align: center; margin-top: 0; font-family: 'Georgia', sans-serif; font-weight: 700; font-size: 3em; letter-spacing: 5px; text-shadow: 3px 3px 6px rgb(198, 198, 196);"> <!-- h1 is for the main heading and the style is linking to the external css file to to have a tyled title -->
+    <header id="header">  <!--div div is a section/group/division for elements - it's the structural building block, it groups and organizes the content by divinding them and it makes it easier to manipulate them all together-->
+        <h1 style="text-align: center; margin-top: 0; font-family: 'Georgia', sans-serif; font-weight: 700; font-size: 3em; letter-spacing: 5px; text-shadow: 3px 3px 6px rgb(198, 198, 196);"> <!--h1 is for the main heading and the style is linking to the external css file to to have a tyled title-->
             BRAIN ANATOMY AND PHYSIOLOGY
         </h1>
     </header>
 
-    <!--p stands for paragraph-->
+    <!--Main content section that includes our description/introduction of the website-->
     <main id="main-content" class="container">
         <section id="introduction">
             <p style="text-align: center;">
@@ -29,32 +29,37 @@
             Interactivity can effectively illustrate complex brain functions like memory, movement, and sensory processing.
             This visualization design aims to improve user engagement and knowledge retention.
             Click on any brain part listed on the box to find out more.
-            </p>
-        </section>
+            </p>     <!--p stands for paragraph-->
 
+        </section> 
+
+                <!--Section for displaying the brain image and overlays-->
         <section id="brain-visualization" style="text-align: center;">
             <div id="image-container" style="position: relative; display: inline-block;">
                 <img id="brainImage" src="images/file brain 2024-11-15 at 11.13.10.svg" 
-                     alt="Brain Anatomy" width="700" height="500" style="display: block; margin: auto;"> <!-- putting the central neurons background -->
-                <div id="overlayContainer" style="position: absolute; top: 0; left: 0; width: 700px; height: 500px; pointer-events: none;"></div>
+                     alt="Brain Anatomy" width="700" height="500" style="display: block; margin: auto;"> <!-- putting the central brain image-->
+                <div id="overlayContainer" style="position: absolute; top: 0; left: 0; width: 700px; height: 500px; pointer-events: none;"></div> <!--overlay container for interactive elements-->
             </div>
         </section>
 
-        <section id="interaction-panel"> <!--assinging variable "styleBox" for the list of brain parts-->
-            <div id="styleBox">
+        <!--Interaction panel for brain part selection and displaying information-->
+        <section id="interaction-panel"> 
+            <!--box containing buttons for brain part selection-->
+            <div id="styleBox"> <!--assinging variable "styleBox" for the list of brain parts-->
                 <h3 style="margin-top: 5; text-shadow: 2px 2px 5px rgba(211, 211, 211, 0.588); text-align: center;">Select a Brain Part</h3>
-            </div> <!-- holds the buttons for the brain parts -->
+            </div> <!-- holds the buttons for the brain parts-->
             
-            <!--assinging variable "functionBox" for the function descriptions-->
-            <div id="functionBox" style="display: none;"> <!-- makes the functions box with the deatils appear together with the image -->
-                <button id="closeButton" aria-label="Close function box">x</button> <!-- the close button makes the function box and the brain image related to it vanish -->
+            <!--assinging variable "functionBox" for the function descriptions of selected brain part-->
+            <div id="functionBox" style="display: none;"> <!--hidden by default, so it becomes visible when a brain part is selected-->
+                <button id="closeButton" aria-label="Close function box">x</button> <!--the close button makes the function box close-->
                 <h3>Function</h3>
-                <p id="functionDescription">Click on a brain part to see its function.</p>
-                <p id="wikiLink" style="margin-top: 10px;"></p>
+                <p id="functionDescription">Click on a brain part to see its function.</p> <!--placeholder for function description-->
+                <p id="wikiLink" style="margin-top: 10px;"></p> <!--placeholder for a link to the wikipedia page-->
             </div>
         </section>
     </main>
 
+    <!--footer with licence and image source information-->
     <footer id="footerBar" style="text-align: center; margin-top: 20px;">
         <p>
             © <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0 License</a>. 
@@ -62,7 +67,9 @@
         </p>
     </footer>
 
+    <!--start of JavaScrip for interactivity-->
     <script>
+        // SPARQL endpoint and query to fetch brain part data from wikidata
         const sparqlEndpoint = 'https://query.wikidata.org/sparql';
 
         const sparqlQuery = `
@@ -94,6 +101,7 @@
             }
         `;
 
+        // mapping the brain parts to their respective SVG images
         const imageMap = {
             'Q749520': 'images/Frontal lobe.svg',
             'Q848340': 'images/Occipital lobe.svg',
@@ -112,17 +120,18 @@
             'Q130983': 'images/Cerebellum.svg',
         };
 
-        async function fetchBrainPartsData() {
+        // fetching brain part data from the SPARQL endpont previously stated
+        async function fetchBrainPartsData() { // asyn stants for asynchronous function: allows tasks to run in parallel, so they do not block executions of other tasks (making it flow easily)
             const url = `${sparqlEndpoint}?query=${encodeURIComponent(sparqlQuery)}`;
             try {
-                const response = await fetch(url, {
+                const response = await fetch(url, { // await is a keyword to pause the function execution until a promise resolves or rejects, and it is only used in async function to make it look like a sync function more - makes it easier to debug
                     headers: {
                         'Accept': 'application/sparql-results+json',
                     },
                 });
 
                 if (!response.ok) {
-                    throw new Error(`SPARQL query failed with status: ${response.status}`);
+                    throw new Error(`SPARQL query failed with status: ${response.status}`); // the await, like said before, to make it easier to debug because the errors can be cought here in a sigle "try...catch" instead of multiple "catch()" calls like async functions do
                 }
 
                 const data = await response.json();
@@ -138,6 +147,7 @@
             }
         }
 
+        // populates the buttons for each brain part in the stylebox
         async function populateButtons() {
             const styleBox = document.getElementById('styleBox');
             const brainPartsData = await fetchBrainPartsData();
@@ -147,6 +157,7 @@
                 button.textContent = part.label;
                 button.setAttribute('aria-label', `View information about ${part.label}`);
 
+                // event listener to display function description and image on button click
                 button.addEventListener('click', () => {
                     const functionBox = document.getElementById('functionBox');
                     const functionDescription = document.getElementById('functionDescription');
@@ -174,6 +185,7 @@
             });
         }
 
+        // hides the function box when the close button is clicked
         document.getElementById('closeButton').addEventListener('click', () => {
             const functionBox = document.getElementById('functionBox');
             functionBox.style.display = 'none';
@@ -182,6 +194,7 @@
             brainImage.src = 'images/file brain 2024-11-15 at 11.13.10.svg';
         });
 
+        // initial population of buttons
         populateButtons();
     </script>
 </body>
