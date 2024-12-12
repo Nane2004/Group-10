@@ -134,69 +134,77 @@
                     throw new Error(`SPARQL query failed with status: ${response.status}`); // the await, like said before, to make it easier to debug because the errors can be cought here in a sigle "try...catch" instead of multiple "catch()" calls like async functions do
                 }
 
-                const data = await response.json();
-                return data.results.bindings.map((binding) => ({
-                    id: binding.BrainPart.value.split('/').pop(),
+                const data = await response.json(); // converts the response from SPARQL query into JSON format
+                return data.results.bindings.map((binding) => ({ // maps over the query results to extract and structure relevant data for each brain part
+                    id: binding.BrainPart.value.split('/').pop(), // getting the specific id of the brain part by splitting the URL and taking the last segment
+                    // getting the lanel and description of the brain parts
                     label: binding.BrainPartLabel.value,
-                    description: binding.BrainPartDescription.value,
-                    wikipedia: binding.WikipediaArticle ? binding.WikipediaArticle.value : null,
+                    description: binding.BrainPartDescription.value, 
+                    wikipedia: binding.WikipediaArticle ? binding.WikipediaArticle.value : null, // if a Wikipedia article exists for the brain part, retrieve its URL; otherwise, set it to null
                 }));
-            } catch (error) {
+            } catch (error) { // if there are issues with fetching data, an error is logged to the console
                 console.error('Error fetching data from SPARQL endpoint:', error);
-                return [];
+                return []; // returns an empty array to avoid breaking the application when an error occurs
             }
         }
 
         // populates the buttons for each brain part in the stylebox
         async function populateButtons() {
-            const styleBox = document.getElementById('styleBox');
-            const brainPartsData = await fetchBrainPartsData();
+            const styleBox = document.getElementById('styleBox'); // gets the container where buttons will be added
+            const brainPartsData = await fetchBrainPartsData(); // fetching the brain parts from SPARQL query
 
+            // iterating over each brain part data to create a button
             brainPartsData.forEach((part) => {
                 const button = document.createElement('button');
-                button.textContent = part.label;
-                button.setAttribute('aria-label', `View information about ${part.label}`);
+                button.textContent = part.label; // setting the button text to the name of the brain part
+                button.setAttribute('aria-label', `View information about ${part.label}`); // adding an accessible label to the button for screen readers
 
                 // event listener to display function description and image on button click
                 button.addEventListener('click', () => {
-                    const functionBox = document.getElementById('functionBox');
-                    const functionDescription = document.getElementById('functionDescription');
-                    const wikiLink = document.getElementById('wikiLink');
+                    const functionBox = document.getElementById('functionBox'); // selection the container for displaying the brain part's function
+                    const functionDescription = document.getElementById('functionDescription'); // selecting  the paragraph where the description will be displayed
+                    const wikiLink = document.getElementById('wikiLink'); // selecting the paragraph where the wikipedia link will be displayed
 
+                    // Updating the function box with the brain part's label and description
                     functionDescription.textContent = `${part.label}: ${part.description}`;
-                    if (part.wikipedia) {
+                    if (part.wikipedia) { // IF wikipedia article exists, display link; otherwise (ELSE), display a fallback message
                         wikiLink.innerHTML = `Learn more on <a href="${part.wikipedia}" target="_blank" rel="noopener">Wikipedia</a>`;
                     } else {
                         wikiLink.textContent = "Wikipedia article not available.";
                     }
 
+                    // making functionbox visible
                     functionBox.style.display = 'block';
 
+                    // selecting the image element for the brain visualization and finding the corresponding path for the brain part on its id
                     const brainImage = document.getElementById('brainImage');
                     const newImagePath = imageMap[part.id];
-                    if (newImagePath) {
+                    if (newImagePath) { // IF an image is mapped for the brain part, update the source; otherwhise (ELSE), log a warning
                         brainImage.src = newImagePath;
                     } else {
                         console.warn(`No image mapped for ID: ${part.id}`);
                     }
                 });
 
+                // appending the newly created button to the stylebox container
                 styleBox.appendChild(button);
             });
         }
 
-        // hides the function box when the close button is clicked
+        // hiding the function box when the close button is clicked by adding the click event listener here
         document.getElementById('closeButton').addEventListener('click', () => {
             const functionBox = document.getElementById('functionBox');
             functionBox.style.display = 'none';
 
+            // resets brain image to the default state
             const brainImage = document.getElementById('brainImage');
             brainImage.src = 'images/file brain 2024-11-15 at 11.13.10.svg';
         });
 
-        // initial population of buttons
+        // calls the populatebuttons function to initialize the buttons on page load
         populateButtons();
     </script>
 </body>
 
-</html>
+</html> 
+<!--end of html doument :)-->
