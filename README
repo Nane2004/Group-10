@@ -13,4 +13,6 @@ Editing of the Images. Buttons. Wikidata Query. Aesthetics of the webpage (final
 # Instructions For How To Use This Website. Light Introduction to the Code
 Click on any brain part listed in the box on the bottom left. The brain part's location within the brain is indicated with the highlighted part(s) on the image that illustrates a side view, a midline cross-section, and a top-down view of the brain. The function of the brainpart retrieved from Wikidata database appears on the right side of the webpage. The box with the function will also contain a link to Wikipedia for more information. The user may click the red button with an "x" in the function box when they wish to hide the function box and the highlighted part(s) on the image, although it is not necessary to use before viewing the other parts of the brain.
 
-What does our images folder, style.css and website.html code contain?
+# What does our images folder, style.css and website.html code contain?
+The "images" folder contains highlighted brain parts along with the background image. The "style.css" file includes the code for the website's design and layout. The "website.html" file serves as the main structure and functionality of the working website.
+
