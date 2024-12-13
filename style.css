@@ -1,40 +1,49 @@
-body { /*the color of the website*/
-    background-color: rgb(254, 254, 254);
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
-
-#header {
-    background-image: url('images/backroundimagefinal.svg');
-    background-size: cover;
+#header { /* # stands for id which can be used in html to change the style of the element*/
+    margin-top: 0; /*margin-top: 0 = the space above the header is eliminated so it will appear closer to the element above it if there is any*/
+    background-image: url('images/Backroundimageforheader.svg'); /* sets the backround image */
+    background-size: cover; /* ensures the background image covers the entire area of the head of the webpage */
     background-position: center;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; /* prevents the image from repeating */
     text-align: center;
-    font-family: 'Georgia', sans-serif;
-    padding: 50px 0; /* Adds padding around the header */
-    padding-bottom: 5px;
-    color: white; /* Make the text white for contrast */
-    height: 150px;
-    box-sizing: border-box;
+    font-family: Georgia, sans-serif;
+    font-weight: 700; /* makes the font bold */
+    font-size: 1.8em; /* sets the size of the font to be 1.8 times bigger from the parent element which is <h1> in html file*/
+    letter-spacing: 5px;
+    text-shadow: 3px 3px 6px rgb(198, 198, 196);
+    padding: 10px; /* adds padding around the header */
+    color: white; /* the text is white */
+    height: 150px; /* height of the head of the webpage */
+    box-sizing: border-box; /* ensures that padding is within the dimentions of the head of the webpage*/
 }
 
-/*#maintext { /*descriptive text*/
-
-/*}
-
-/* Style for the container with content */
+/* style for the container with content in the center of the webpage*/
+/* .container targets an element in html file with the class attribute set to container,
+differs from id which is meant for only one element: multiple elements can share the same class */
  .container {
     margin: 0;
     padding-left: 250px;
     padding-bottom: 10px;
     font-family: Arial, sans-serif;
+    text-align: center;
     width: 80%; /* 80% of the page width */
-    max-width: 1200px; /* Set a max width for large screens */
-    margin: 0 auto; /* Center the container horizontally */
-    background-color: rgb(166, 196, 201); /* White background for content */
-    padding: 20px; /* Add padding around content */
-    border-radius: 0px; /* rounded corners */
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5); /* shadow effect */
+    max-width: 1200px; /* sets a max width for large screens */
+    margin: 0 auto; /* no space above or below the element, auto calculates automatically the left and right margins, making them equal.
+    Margin essentially centers the text horizontally within the container. */
+    background-color: rgb(166, 196, 201);
+    padding: 20px; /* padding around content */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5); /* shadow effect for the container in the middle of the page*/
+}
+
+#image-container {
+    position: relative;
+    display: inline-block; /* inline allows the element to sit alongside text without forcing a line break and block allows to set width, height, margin, and padding*/
+}
+
+#brainImage {
+    display: block;
+    margin: auto;
+    width: 700px;
+    height: 500px;
 }
 
 /*styling the box for the list of brain parts*/
@@ -46,119 +55,116 @@ body { /*the color of the website*/
     height: 470px;
     padding: 10px; /*padding creates space between the border and the content*/
     padding-bottom: 45px;
-    background-color: rgb(201, 146, 148); /* border: 2px solid black; */
-    overflow-y: auto;  /* Enable vertical scrolling */
+    background-color: rgb(201, 146, 148);
+    overflow-y: auto;  /* enables vertical scrolling */
     border-radius: 5px;
-    direction: rtl; /* Switch content direction to right-to-left */
-    text-align: left; /* Restore text alignment to left */
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5); /* shadow effect */
+    direction: rtl; /* switches content direction to right-to-left */
+    text-align: left; /* restores text alignment to left */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5); /* shadow effect for the box */
 }
 
 /*styling the heading of the box of the list, h1 is the biggest in size and h6 the smallest*/
 #styleBox h3 {
-    margin: 0 0 10px 0;
+    margin-top: 5px;
+    text-shadow: 2px 2px 5px rgba(211, 211, 211, 0.588);
     text-align: center;
-    font-size: 16px;
 }
+
 /*styling the buttons inside the box*/
 #styleBox button { /*CSS is (lower-higher)case-sensitive, check that the id is always written correctly*/
-    display: block;
+    display: block; /* the buttons will look like blocks */
     width: 100%;
     margin: 5px 0;
     padding: 5px;
     border: 1px solid black;
     border-radius: 3px;
     background-color: white;
-    cursor: pointer;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* subtle shadow effect */
+    cursor: pointer; /* changes the mouse cursor to a pointer when hovering over the button, indicating that it is clickable */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/*when the mouse hovers over the button then the color of the button changes slightly*/
+/*when the mouse hovers over the button with a brain part label in it then the color of the button changes */
 #styleBox button:hover {
     background-color: #fff954;
 }
 
 #functionBox {
-    position: fixed; /* Changed from absolute to fixed */
-    bottom: 30px; /* Distance from the bottom of the viewport */
-    right: 30px; /* Distance from the right of the viewport */
+    position: fixed;
+    bottom: 30px; /* distance from the bottom of the viewport */
+    right: 30px; /* distance from the right of the viewport */
     width: 200px;
     padding: 10px;
     padding-bottom: 55px;
     background-color: rgb(201, 146, 148);
     border: 2px solid black;
     border-radius: 5px;
-    display: none; /* Initially hidden */
-    z-index: 1000; /* Ensures it stays on top of other elements */
-    transition: 2.5s;
+    display: none; /* the function box is initially hidden */
+    z-index: 1000; /* ensures it stays on top of other elements */
+    transition: 2.5s; /* transition creates smooth effects when visibility and position are modified */
+}
+
+#functionBox h3 { /* the properties of the heading of the function box */
+    margin: 0;
+    text-align: center;
+    font-size: 16px;
 }
 
 #closeButton {
-    position: absolute; /* Position within the parent (functionBox) */
-    top: 5px; /* Distance from the top of functionBox */
-    right: 5px; /* Distance from the right of functionBox */
+    position: absolute; /* position within function box is out of the normal flow so the buttons can freely overlap other elements */
+    top: 5px; /* distance from the top of functionBox */
+    right: 5px; /* distance from the right of functionBox */
     background-color: rgb(249, 0, 0);
     color: white;
     border: 1px solid black;
-    border-radius: 50%;
+    border-radius: 50%; /* rounds the corners by 50% */
     width: 20px;
     height: 20px;
     cursor: pointer;
     text-align: center;
     font-size: 12px;
-    line-height: 20px;
-    padding: 0;
+    line-height: 20px; /* vertical space between lines of text */
     padding-left: 1px;
     padding-bottom: 1px;
     padding-right: 2px;
     }
 
 
-#closeButton:hover {
+#closeButton:hover { /* when the cursor moves over the close button then the button changes its color */
     background-color: darkred;
 }
 
-#functionBox h3 {
-    margin: 0;
-    text-align: center;
-    font-size: 16px;
-}
-
-/*adding the initial SVG image of the brain onto the website*/
+/* properties for when adding the initial SVG image of the brain onto the website */
 #imageBrain {
-    position: absolute;
-    top: 0px; /*makes sure the image is as high on the page as possible*/
-    left: 50%;
-    transform: translateX(-50%); /* Center horizontally */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: absolute; /* positioned relative to the <html> or the viewport */
+    left: 50%; /* makes the image start from the middle of the page */
+    transform: translateX(-50%); /* offsets the element by 50% of its own width to the left */
     width: 100%;
 }
 
 #imageBrain img {
-    max-width: 100%;  /*adjusts the image size within the available space*/
-    max-height: 80%; /*limits the height of the image*/
+    max-width: 100%;  /* adjusts the image size within the available space */
+    max-height: 80%; /* limits the height of the image */
 }
 
 #footerBar {
-    position: fixed; /* Keeps the footer at the bottom */
-    bottom: 0; /* Zero pixels from the bottom */
-    width: 100%; /* Full width of the viewport */
-    background-color: rgb(118, 118, 118); /* Dark background for contrast */
-    color: white; /* White text color */
-    text-align: center; /* Center-align the text */
-    padding: 0px 0; /* Padding for comfortable spacing */
-    font-size: 10px; /* Small but readable font size */
-    z-index: 999; /* Ensures it stays above other elements */
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* subtle shadow effect */
+    margin-top: 20px;
+    position: fixed; /* keeps the footer at the bottom */
+    bottom: 0px;
+    width: 100%; /* takes up full width of the viewport */
+    background-color: rgb(118, 118, 118);
+    color: white;
+    text-align: center;
+    padding: 0px 0; /* padding for comfortable spacing within the text on the footer*/
+    font-size: 10px;
+    z-index: 999; /* elements with higher z-index values appear in front of those with lower values */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
 }
 
-#footerBar a {
-    color: lightblue; /* Makes links stand out */
-    text-decoration: none; /* Removes underline from links */
+#footerBar a { /* display settings of the links inside the footer */
+    color: lightblue;
+    text-decoration: none; /* removes underline from links */
 }
 
 #footerBar a:hover {
-    text-decoration: underline; /* Adds underline on hover for clarity */
+    text-decoration: underline; /* adds underline whenever the pointer hovers over the links */
 }

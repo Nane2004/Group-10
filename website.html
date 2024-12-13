@@ -15,53 +15,56 @@
 <body> <!--the body section is meant for content display-->
 
     <!--h1 stands for the main heading on the page itself-->
-    <header id="header">  <!--div div is a section/group/division for elements - it's the structural building block, it groups and organizes the content by divinding them and it makes it easier to manipulate them all together-->
-        <h1 style="text-align: center; margin-top: 0; font-family: 'Georgia', sans-serif; font-weight: 700; font-size: 3em; letter-spacing: 5px; text-shadow: 3px 3px 6px rgb(198, 198, 196);"> <!--h1 is for the main heading and the style is linking to the external css file to to have a tyled title-->
+    <header id="header">
+        <h1> <!--h1 is for the main heading and the style is linking to the external css file to to have a styled title-->
             BRAIN ANATOMY AND PHYSIOLOGY
         </h1>
     </header>
 
-    <!--Main content section that includes our description/introduction of the website-->
-    <main id="main-content" class="container">
-        <section id="introduction">
-            <p style="text-align: center;">
+    <!--main content section that includes our description/introduction of the website-->
+    <main class="container"> <!--class applies CSS style layout named .container from the CSS file to the <main> sections-->
+        <section>
+            <p>
                 This website illustrates human brain anatomy and the functional specialization of its regions to support biomedical research and educational applications.
             Interactivity can effectively illustrate complex brain functions like memory, movement, and sensory processing.
             This visualization design aims to improve user engagement and knowledge retention.
             Click on any brain part listed on the box to find out more.
-            </p>     <!--p stands for paragraph-->
-
+            </p> <!--p stands for paragraph-->
         </section> 
 
-                <!--Section for displaying the brain image and overlays-->
-        <section id="brain-visualization" style="text-align: center;">
-            <div id="image-container" style="position: relative; display: inline-block;">
-                <img id="brainImage" src="images/file brain 2024-11-15 at 11.13.10.svg" 
-                     alt="Brain Anatomy" width="700" height="500" style="display: block; margin: auto;"> <!-- putting the central brain image-->
-                <div id="overlayContainer" style="position: absolute; top: 0; left: 0; width: 700px; height: 500px; pointer-events: none;"></div> <!--overlay container for interactive elements-->
+        <!--section for displaying the brain image and overlays-->
+        <section>
+            <!--<div> groups elements, it is used as a structural block for layout and easier manipulation-->
+            <div id="image-container">
+                <img id="brainImage" src="images/Original brain.svg" 
+                     alt="side view, midline cross-section, and top-down view of the brain"> <!-- putting the central brain image on to the website-->
+                    <!--alt defines an alternative description of the image in case it does not appear-->
             </div>
         </section>
 
-        <!--Interaction panel for brain part selection and displaying information-->
-        <section id="interaction-panel"> 
+        <!--interaction panel for brain part selection and displaying information-->
+        <section>
             <!--box containing buttons for brain part selection-->
-            <div id="styleBox"> <!--assinging variable "styleBox" for the list of brain parts-->
-                <h3 style="margin-top: 5; text-shadow: 2px 2px 5px rgba(211, 211, 211, 0.588); text-align: center;">Select a Brain Part</h3>
-            </div> <!-- holds the buttons for the brain parts-->
+            <div id="styleBox"> <!--assinging variable "styleBox" for the list of brain parts
+                the id="styleBox" links the <div> element to CSS rules defined under #styleBox in CSS file
+                but styles stated in html override any rules in the CSS file for the same properties-->
+                <h3>Select a Brain Part</h3>
+            </div>
             
             <!--assinging variable "functionBox" for the function descriptions of selected brain part-->
             <div id="functionBox" style="display: none;"> <!--hidden by default, so it becomes visible when a brain part is selected-->
-                <button id="closeButton" aria-label="Close function box">x</button> <!--the close button makes the function box close-->
-                <h3>Function</h3>
-                <p id="functionDescription">Click on a brain part to see its function.</p> <!--placeholder for function description-->
+                <button id="closeButton">x</button> <!--the close button makes the function box close-->
+                <h3>Function</h3> <!--the header of the function box-->
+                <p id="functionDescription"></p> <!--placeholder for function description-->
                 <p id="wikiLink" style="margin-top: 10px;"></p> <!--placeholder for a link to the wikipedia page-->
             </div>
         </section>
     </main>
 
     <!--footer with licence and image source information-->
-    <footer id="footerBar" style="text-align: center; margin-top: 20px;">
-        <p>
+    <footer id="footerBar">
+        <p> <!--</a> defines hyperlinks, and it enables users to navigate to other pages, sections of a page, external resources etc.
+            target="_blank" opens the link in a new tab and rel="noopener" severs the connection between the original page and the new tab-->
             © <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0 License</a>. 
             Images used on this site are sourced from <a href="https://stock.adobe.com/" target="_blank" rel="noopener">Adobe Stock</a>.
         </p>
@@ -71,76 +74,78 @@
     <script>
         // SPARQL endpoint and query to fetch brain part data from wikidata
         const sparqlEndpoint = 'https://query.wikidata.org/sparql';
-
+        // value of the const cannot be reassigned after it has been initialized but the objects and arrays can still be modified
         const sparqlQuery = `
+            # SELECT is used to specify variables that the query will return
             SELECT ?BrainPart ?BrainPartLabel ?BrainPartDescription ?WikipediaArticle
-            WHERE {
-                VALUES ?BrainPart {
-                    wd:Q815334  # Parietal lobe
-                    wd:Q744385  # Temporal lobe
-                    wd:Q848340  # Occipital lobe
-                    wd:Q749520  # Frontal lobe
-                    wd:Q338924  # Amygdala
-                    wd:Q130983  # Cerebellum
-                    wd:Q11345481  # Limbic lobe
-                    wd:Q184215  # Thalamus
-                    wd:Q164386  # Hypothalamus
-                    wd:Q192570  # Pons
-                    wd:Q48360   # Hippocampus
-                    wd:Q728285  # Broca's area
-                    wd:Q156871  # Pituitary gland
+            WHERE { # conditions for the search results
+                VALUES ?BrainPart { # each number combination is an id that stands for a brain part in Wikidata database
+                    wd:Q815334 # parietal lobe
+                    wd:Q744385 # temporal lobe
+                    wd:Q848340 # occipital lobe
+                    wd:Q749520 # frontal lobe
+                    wd:Q338924 # amygdala
+                    wd:Q130983 # cerebellum
+                    wd:Q11345481 # limbic lobe
+                    wd:Q184215 # thalamus
+                    wd:Q164386 # hypothalamus
+                    wd:Q192570 # pons
+                    wd:Q48360  # hippocampus
+                    wd:Q728285 # broca's area
+                    wd:Q156871 # pituitary gland
                 }
-
+                # the query stores the retrieved description of each brain part in the variable ?BrainPartDescription
                 ?BrainPart schema:description ?BrainPartDescription.
+                # if there is an English Wikipedia article available then it will provide it too
                 OPTIONAL { ?WikipediaArticle schema:about ?BrainPart; schema:isPartOf <https://en.wikipedia.org/>. }
-                FILTER (LANG(?BrainPartDescription) = "en")
+                FILTER (LANG(?BrainPartDescription) = "en") # the description will be in English
 
-                SERVICE wikibase:label { 
+                SERVICE wikibase:label { # retrieves labels/names of brain parts in English for each id listed above
                     bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en".
                 }
             }
         `;
 
         // mapping the brain parts to their respective SVG images
-        const imageMap = {
+        const imageMap = { // images/ is used because svg-s are stored in a subfolder in the repository
             'Q749520': 'images/Frontal lobe.svg',
             'Q848340': 'images/Occipital lobe.svg',
-            'Q815334': 'images/Parietal lobe final.svg',
+            'Q815334': 'images/Parietal lobe.svg',
             'Q744385': 'images/Temporal Lobe.svg',
             'Q728285': 'images/Brocas area.svg',
             'Q11345481': 'images/Limbic lobe.svg',
             'Q338924': 'images/Amygdala.svg',
             'Q48360': 'images/Hippocampus.svg',
-            'Q184215': 'images/thalamus.svg',
-            'Q164386': 'images/hypothalamus.svg',
-            'Q156871': 'images/pituitary gland.svg',
-            'Q189033': 'images/medulla oblongata.svg',
-            'Q185080': 'images/midbrain(mesencephalon).svg',
-            'Q192570': 'images/Pons (1).svg',
+            'Q184215': 'images/Thalamus.svg',
+            'Q164386': 'images/Hypothalamus.svg',
+            'Q156871': 'images/Pituitary gland.svg',
+            'Q192570': 'images/Pons.svg',
             'Q130983': 'images/Cerebellum.svg',
         };
 
-        // fetching brain part data from the SPARQL endpont previously stated
-        async function fetchBrainPartsData() { // asyn stants for asynchronous function: allows tasks to run in parallel, so they do not block executions of other tasks (making it flow easily)
+        // function to fetch brain parts' data from the SPARQL endpoint previously stated
+        async function fetchBrainPartsData() { // async stands for asynchronous function: allows tasks to run in parallel, so they do not block executions of other tasks (making it flow easily)
             const url = `${sparqlEndpoint}?query=${encodeURIComponent(sparqlQuery)}`;
-            try {
+            // sparqlEndpoint is a variable containing the SPARQL endpoint's base URL
+            // encodeURIComponent(sparqlQuery) replaces special characters (like spaces) in sparqlQuery with URL-safe equivalents
+            try { // attempts to use the url
                 const response = await fetch(url, { // await is a keyword to pause the function execution until a promise resolves or rejects, and it is only used in async function to make it look like a sync function more - makes it easier to debug
-                    headers: {
+                    headers: { // defines the format of the result/response, in this case in json
                         'Accept': 'application/sparql-results+json',
                     },
                 });
 
-                if (!response.ok) {
-                    throw new Error(`SPARQL query failed with status: ${response.status}`); // the await, like said before, to make it easier to debug because the errors can be cought here in a sigle "try...catch" instead of multiple "catch()" calls like async functions do
-                }
+                if (!response.ok) { // checks if the response status indicates a failure, also ! ensures the next line runs only if the status is not ok
+                    throw new Error(`SPARQL query failed with status: ${response.status}`);        }
 
+                // await makes it easier to debug because the errors can be caught here in a sigle "try...catch" instead of multiple "catch()" calls like async functions do
                 const data = await response.json(); // converts the response from SPARQL query into JSON format
                 return data.results.bindings.map((binding) => ({ // maps over the query results to extract and structure relevant data for each brain part
                     id: binding.BrainPart.value.split('/').pop(), // getting the specific id of the brain part by splitting the URL and taking the last segment
                     // getting the lanel and description of the brain parts
                     label: binding.BrainPartLabel.value,
                     description: binding.BrainPartDescription.value, 
-                    wikipedia: binding.WikipediaArticle ? binding.WikipediaArticle.value : null, // if a Wikipedia article exists for the brain part, retrieve its URL; otherwise, set it to null
+                    wikipedia: binding.WikipediaArticle ? binding.WikipediaArticle.value : null, // if a Wikipedia article exists for the brain part, it retrieves its URL; otherwise, it is set to null
                 }));
             } catch (error) { // if there are issues with fetching data, an error is logged to the console
                 console.error('Error fetching data from SPARQL endpoint:', error);
@@ -148,45 +153,44 @@
             }
         }
 
-        // populates the buttons for each brain part in the stylebox
+        // populates the buttons for each brain part in the stylebox (brain parts list)
         async function populateButtons() {
-            const styleBox = document.getElementById('styleBox'); // gets the container where buttons will be added
+            const styleBox = document.getElementById('styleBox'); // references "styleBox" element i the html file and applies the specific style defined in the CSS file, so that buttons can be added
             const brainPartsData = await fetchBrainPartsData(); // fetching the brain parts from SPARQL query
 
-            // iterating over each brain part data to create a button
-            brainPartsData.forEach((part) => {
+            brainPartsData.forEach((part) => { // goes (iterates) over each brain part data to create a button
                 const button = document.createElement('button');
                 button.textContent = part.label; // setting the button text to the name of the brain part
                 button.setAttribute('aria-label', `View information about ${part.label}`); // adding an accessible label to the button for screen readers
 
                 // event listener to display function description and image on button click
                 button.addEventListener('click', () => {
-                    const functionBox = document.getElementById('functionBox'); // selection the container for displaying the brain part's function
-                    const functionDescription = document.getElementById('functionDescription'); // selecting  the paragraph where the description will be displayed
-                    const wikiLink = document.getElementById('wikiLink'); // selecting the paragraph where the wikipedia link will be displayed
+                    const functionBox = document.getElementById('functionBox'); // references the "functionBox" element and applies the style definened in the CSS file under the same id
+                    const functionDescription = document.getElementById('functionDescription'); // retrieves the id functionDescription with which the description will be displayed
+                    const wikiLink = document.getElementById('wikiLink'); // retrieves the id WikiLink with which the wikipedia link will be displayed
 
-                    // Updating the function box with the brain part's label and description
+                    // updating the function box with the brain parts' label and description
                     functionDescription.textContent = `${part.label}: ${part.description}`;
-                    if (part.wikipedia) { // IF wikipedia article exists, display link; otherwise (ELSE), display a fallback message
+                    if (part.wikipedia) { // IF Wikipedia article exists, link to it is displayed; otherwise (ELSE) a fallback message is displayed
                         wikiLink.innerHTML = `Learn more on <a href="${part.wikipedia}" target="_blank" rel="noopener">Wikipedia</a>`;
                     } else {
                         wikiLink.textContent = "Wikipedia article not available.";
                     }
 
-                    // making functionbox visible
+                    // making functionBox invisible in default
                     functionBox.style.display = 'block';
 
                     // selecting the image element for the brain visualization and finding the corresponding path for the brain part on its id
                     const brainImage = document.getElementById('brainImage');
                     const newImagePath = imageMap[part.id];
-                    if (newImagePath) { // IF an image is mapped for the brain part, update the source; otherwhise (ELSE), log a warning
+                    if (newImagePath) { // IF an image is mapped for the brain part, update the source; otherwhise (ELSE), indicate that no image was found in console
                         brainImage.src = newImagePath;
                     } else {
                         console.warn(`No image mapped for ID: ${part.id}`);
                     }
                 });
 
-                // appending the newly created button to the stylebox container
+                // appending the newly created button to the styleBox container (buttons in the list of the brain parts)
                 styleBox.appendChild(button);
             });
         }
@@ -198,13 +202,12 @@
 
             // resets brain image to the default state
             const brainImage = document.getElementById('brainImage');
-            brainImage.src = 'images/file brain 2024-11-15 at 11.13.10.svg';
+            brainImage.src = 'images/Original brain.svg';
         });
 
-        // calls the populatebuttons function to initialize the buttons on page load
+        // calls on the populatebuttons function to initialize the buttons on page load
         populateButtons();
     </script>
 </body>
 
-</html> 
-<!--end of html doument :)-->
+</html> <!--end of html doument-->
