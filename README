@@ -1,12 +1,16 @@
 # The Aim of PRA30006. Contents of the Course. Important Elements Within the Code
 The final product of the course was a functional interactive website that is related to life sciences. The website should have been based on javascript and linked to an external database.
-explain wikidata query, css, svg, html
+Maybe explain shortly what is Wikidata Query, CSS, svg, and html?
 
-# The Aim of Our Website
+# The Aim of This Website
 This website illustrates human brain anatomy and the functional specialization of its regions to support biomedical research and educational applications. Interactivity can effectively illustrate complex brain functions like memory, movement, and sensory processing.
 This visualization design aims to improve user engagement and knowledge retention.
 
-# Process of How This Website Was Built: weekly Achievements and Challenges
+# Process of How This Website Was Built: Weekly Achievements and Challenges
+How did we choose the final brain parts? What classification did we have in mind? How did we add info to Wikidata?
+Editing of the Images. Buttons. Wikidata Query. Aesthetics of the webpage (final touches). Mainly just the highlights of week 1-6. How this site can be improved?
 
-# Instructions For How To Use This Website
-Click on any brain part listed in the box to find out more.
+# Instructions For How To Use This Website. Light Introduction to the Code
+Click on any brain part listed in the box on the bottom left. The brain part's location within the brain is indicated with the highlighted part(s) on the image that illustrates a side view, a midline cross-section, and a top-down view of the brain. The function of the brainpart retrieved from Wikidata database appears on the right side of the webpage. The box with the function will also contain a link to Wikipedia for more information. The user may click the red button with an "x" in the function box when they wish to hide the function box and the highlighted part(s) on the image, although it is not necessary to use before viewing the other parts of the brain.
+
+What does our style.css and website.html code contain?
