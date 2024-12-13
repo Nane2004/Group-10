@@ -1,4 +1,12 @@
-This website illustrates human brain anatomy and the functional specialization of its regions to support biomedical research and educational applications.
-Interactivity can effectively illustrate complex brain functions like memory, movement, and sensory processing.
+# The Aim of PRA30006. Contents of the Course. Important Elements Within the Code
+The final product of the course was a functional interactive website that is related to life sciences. The website should have been based on javascript and linked to an external database.
+explain wikidata query, css, svg, html
+
+# The Aim of Our Website
+This website illustrates human brain anatomy and the functional specialization of its regions to support biomedical research and educational applications. Interactivity can effectively illustrate complex brain functions like memory, movement, and sensory processing.
 This visualization design aims to improve user engagement and knowledge retention.
-Click on any brain part listed on the box to find out more.
+
+# Process of How This Website Was Built: weekly Achievements and Challenges
+
+# Instructions For How To Use This Website
+Click on any brain part listed in the box to find out more.
