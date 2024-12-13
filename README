@@ -1,18 +1,20 @@
-# The Aim of PRA30006. Contents of the Course. Important Elements Within the Code
-The final product of the course was a functional interactive website that is related to life sciences. The website should have been based on javascript and linked to an external database.
-Maybe explain shortly what is Wikidata Query, CSS, svg, and html?
+# The Aim of PRA30006. Important Elements Within the Repository
+The final product of the course was a functional interactive website that is related to life sciences. The website should have been based on javascript and linked to an external database. Here are some important terms to understand the contents of this repository:
+CSS is a programming language used to style and layout a webpage. It is used to modify the appearance of HTML elements with colors, fonts, placement etc. CSS is used to separate presentation from content.
+HTML is a programming language that is used to structure the webpage. It is the backbone/canvas of the website. HTML contains elements like headings, paragraphs, images, links etc. An element may have an assigned ID that is used to apply a style described under the same variable in the CSS file or to make its use more efficient later in the HTML code.
+SVG is a file format used to create and display graphics, illustrations, and designs directly in web pages. SVG uses mathematical formulas instead of pixels to define shapes like lines, circles, and curves.
+Wikidata query within the HTML code is made with SPARQL query language to retrieve data from Wikidata. It gives an opportunity to explore and analyze linked data, such as relationships between concepts, historical events, or geographical information.
+Wikidata is a free, collaborative, and structured database that stores data in a way that can be easily read and used by humans and machines.
 
 # The Aim of This Website
 This website illustrates human brain anatomy and the functional specialization of its regions to support biomedical research and educational applications. Interactivity can effectively illustrate complex brain functions like memory, movement, and sensory processing.
 This visualization design aims to improve user engagement and knowledge retention.
 
-# Process of How This Website Was Built: Weekly Achievements and Challenges
-How did we choose the final brain parts? What classification did we have in mind? How did we add info to Wikidata?
-Editing of the Images. Buttons. Wikidata Query. Aesthetics of the webpage (final touches). Mainly just the highlights of week 1-6. How this site can be improved?
+# Process of How This Website Was Built. Improvements For Future Use
+The information about brain parts was checked, filtered, and edited within a database called Wikidata. The final selection of brain parts was achieved through a combination of querying and the illustration process, ensuring the visual information was plausible and the list formed a coherent whole. The image in the header of the website was created by AI and the base brain image was taken from Adobe Stock. The brain parts were highlighted on the base image manually and saved as SVGs. The initial idea was to make the base image of the brain an interactive "map" but it was replaced with list of the brain parts functioning as buttons. The box with function of the brain part was made to apper and close on the click of different buttons. The layout of the webpage was experimented with and came to its final form when the alignment seemed the most efficient. This website can be improved for example by providing more information on the brain parts and/or making the image of the brain interactive in addition to or instead of the buttons.
 
-# Instructions For How To Use This Website. Light Introduction to the Code
+# Instructions For How To Use This Website
 Click on any brain part listed in the box on the bottom left. The brain part's location within the brain is indicated with the highlighted part(s) on the image that illustrates a side view, a midline cross-section, and a top-down view of the brain. The function of the brainpart retrieved from Wikidata database appears on the right side of the webpage. The box with the function will also contain a link to Wikipedia for more information. The user may click the red button with an "x" in the function box when they wish to hide the function box and the highlighted part(s) on the image, although it is not necessary to use before viewing the other parts of the brain.
 
 # What does our images folder, style.css and website.html code contain?
 The "images" folder contains highlighted brain parts along with the background image. The "style.css" file includes the code for the website's design and layout. The "website.html" file serves as the main structure and functionality of the working website.
-
